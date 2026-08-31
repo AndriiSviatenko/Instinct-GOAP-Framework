@@ -1,0 +1,17 @@
+{
+  "name": "Instinct.GOAP.Samples.Chef",
+  "rootNamespace": "Instinct.GOAP.Samples.Chef",
+  "references": [
+    "Unity.TextMeshPro",
+    "Instinct.GOAP"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

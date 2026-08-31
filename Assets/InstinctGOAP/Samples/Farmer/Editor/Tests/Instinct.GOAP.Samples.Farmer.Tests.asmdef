@@ -1,0 +1,25 @@
+{
+  "name": "Instinct.GOAP.Samples.Farmer.Tests",
+  "rootNamespace": "Instinct.GOAP.Samples.Farmer.Tests",
+  "references": [
+    "Instinct.GOAP.Samples.Farmer",
+    "Instinct.GOAP",
+    "Instinct.GOAP.Unity",
+    "UniTask"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

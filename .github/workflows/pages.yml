@@ -1,0 +1,45 @@
+name: Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Assets/InstinctGOAP/Documentation/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fail if the handbook is missing
+        run: test -f Assets/InstinctGOAP/Documentation/index.html
+
+      - name: Build documentation artifact
+        run: |
+          mkdir _site
+          cp -R Assets/InstinctGOAP/Documentation/. _site/
+          cp Assets/InstinctGOAP/LICENSE _site/LICENSE
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

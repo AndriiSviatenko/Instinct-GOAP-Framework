@@ -1,0 +1,76 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]serSettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# Never ignore the plugin's own output folders by accident
+!Assets/**/Build/
+
+# Asset meta data — only ignore metas for ignored folders
+/[Aa]ssets/AssetStoreTools*
+/[Aa]ssets/Plugins/Editor/JetBrains*
+
+# IDE / editors
+.vs/
+.vscode/
+.idea/
+.qodo/
+
+# Local agent tooling configs and caches
+.opencode/
+opencode.json
+.claude/
+.agents/
+.cursor/
+.codex/
+.zcode/
+
+# Unity MCP plugin — NuGet-restored DLLs, not part of the framework
+[Aa]ssets/[Pp]lugins/[Nn]uGet/
+[Aa]ssets/[Pp]lugins/[Nn]uGet.meta
+# Assets/Plugins currently holds only the ignored NuGet folder, so its folder
+# meta has nothing to track. Remove this line if real plugins appear.
+[Aa]ssets/[Pp]lugins.meta
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# The core check project must survive the global *.csproj ignore
+!Tools/CoreCheck/core.csproj
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build outputs of the standalone core check
+Tools/CoreCheck/bin/
+Tools/CoreCheck/obj/
+Releases/
+
+# One-off scene generation scripts — internal tooling, not part of the framework
+Tools/scene_gen/
+
+# Local archive of superseded material — history lives in git, not here
+_archive/
+
+# Crash reports
+sysinfo.txt
+*.stackdump
+crashlytics-build.properties

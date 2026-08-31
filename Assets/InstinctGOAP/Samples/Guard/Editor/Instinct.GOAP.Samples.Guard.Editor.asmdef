@@ -1,0 +1,21 @@
+{
+  "name": "Instinct.GOAP.Samples.Guard.Editor",
+  "rootNamespace": "Instinct.GOAP.Samples.Guard.EditorTools",
+  "references": [
+    "Unity.TextMeshPro",
+    "Instinct.GOAP",
+    "Instinct.GOAP.Editor",
+    "Instinct.GOAP.Samples.Guard"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

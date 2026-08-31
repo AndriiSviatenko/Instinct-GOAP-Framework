@@ -1,0 +1,19 @@
+{
+  "name": "Instinct.GOAP.Samples.Farmer",
+  "rootNamespace": "Instinct.GOAP.Samples.Farmer",
+  "references": [
+    "Unity.TextMeshPro",
+    "Instinct.GOAP",
+    "Instinct.GOAP.Unity",
+    "UniTask"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
