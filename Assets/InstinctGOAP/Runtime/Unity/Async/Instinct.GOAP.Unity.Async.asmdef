@@ -1,18 +1,20 @@
 {
-    "name": "Instinct.GOAP.Editor",
-    "rootNamespace": "Instinct.GOAP.EditorTools",
+    "name": "Instinct.GOAP.Unity.Async",
+    "rootNamespace": "Instinct.GOAP.Unity",
     "references": [
-        "Instinct.GOAP"
+        "Instinct.GOAP",
+        "Instinct.GOAP.Unity",
+        "UniTask"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "INSTINCT_UNITASK"
+    ],
     "versionDefines": [
         {
             "name": "com.cysharp.unitask",

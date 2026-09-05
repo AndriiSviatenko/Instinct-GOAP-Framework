@@ -2,8 +2,7 @@
     "name": "Instinct.GOAP.Unity",
     "rootNamespace": "Instinct.GOAP.Unity",
     "references": [
-        "GUID:c6faf7847fbc7ba4d9283dec0c0b2227",
-        "UniTask"
+        "GUID:c6faf7847fbc7ba4d9283dec0c0b2227"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

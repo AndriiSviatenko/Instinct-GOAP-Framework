@@ -129,7 +129,11 @@ new DomainBuilder()
 
 ### Compile error: `The type or namespace name 'Cysharp' could not be found`
 
-`Instinct.GOAP.Unity` requires UniTask, which the package manifest installs automatically. For a dependency-free planner setup, use the [core-only installation](01-installation.md#core-only-installation).
+The async layer lives in `Instinct.GOAP.Unity.Async` and needs UniTask. Install it through the Package Manager (`https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask`), then let Unity recompile.
+
+If UniTask is already installed and the error persists, the `INSTINCT_UNITASK` define did not get raised. Check `Edit → Project Settings → Player → Scripting Define Symbols` for the active build target, and add `INSTINCT_UNITASK` by hand if it is missing.
+
+A project that cannot use UniTask can drop the async layer entirely: `Instinct.GOAP` and `Instinct.GOAP.Unity` compile without it, and actions are composed from `IStep<TCtx>` instead. See the [core-only installation](01-installation.md#core-only-installation).
 
 ---
 

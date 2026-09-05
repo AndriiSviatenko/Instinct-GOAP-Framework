@@ -28,8 +28,7 @@ It has been driving two agents in a real game (a large stalker/hunter NPC with 5
 2. **Allocation per expansion.** Each expansion clones a `WorldState`; each tick allocates a fresh snapshot. Measured: ~34 KB per replan and ~750 B per tick on a 57-fact domain. Fine for dozens of agents, not for hundreds on mobile.
 3. **Facts must be individual static fields.** A `Fact<T>[]` field is invisible to schema discovery, and the failure mode is a confusing runtime exception on the first `Get`.
 4. **`Fact<long>`-backed enums are rejected**, as are `string`, `Vector3` and reference types. That is a deliberate design constraint of the dense state, not an oversight — model positions as distances or discrete cells.
-5. **`Instinct.GOAP.Unity` requires UniTask unconditionally.** The package manifest installs it automatically; projects that cannot use it should choose the [core-only installation](01-installation.md#core-only-installation).
-6. **No `package.json`**, so no UPM/git-URL install out of the box — copy the folder, or add one yourself.
+5. **The async action layer requires UniTask.** `Instinct.GOAP.Unity.Async` is guarded by the `INSTINCT_UNITASK` define and is simply skipped when UniTask is absent, as is the Farmer sample. The planner and `Instinct.GOAP.Unity` still compile; actions are then composed from `IStep<TCtx>`.
 7. **Predicates and `DynamicEffect` are invisible to tooling.** They draw no graph edges and validation cannot reason about them.
 8. **`IActionExecutor.OnSelected` fires every tick**, not once per action. Track entry yourself in a hand-written executor.
 9. **A failing step inside `Steps.Sequence` receives `OnExit` twice** (once when the sequence sees the failure, once when the action exits). Keep `OnExit` idempotent.

@@ -5,6 +5,7 @@
     "Instinct.GOAP.Samples.Farmer",
     "Instinct.GOAP",
     "Instinct.GOAP.Unity",
+    "Instinct.GOAP.Unity.Async",
     "UniTask"
   ],
   "includePlatforms": [
@@ -18,8 +19,15 @@
   ],
   "autoReferenced": false,
   "defineConstraints": [
-    "UNITY_INCLUDE_TESTS"
+    "UNITY_INCLUDE_TESTS",
+    "INSTINCT_UNITASK"
   ],
-  "versionDefines": [],
+  "versionDefines": [
+    {
+      "name": "com.cysharp.unitask",
+      "expression": "",
+      "define": "INSTINCT_UNITASK"
+    }
+  ],
   "noEngineReferences": false
 }

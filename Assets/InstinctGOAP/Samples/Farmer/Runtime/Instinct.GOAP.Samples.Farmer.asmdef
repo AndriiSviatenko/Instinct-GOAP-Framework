@@ -5,6 +5,7 @@
     "Unity.TextMeshPro",
     "Instinct.GOAP",
     "Instinct.GOAP.Unity",
+    "Instinct.GOAP.Unity.Async",
     "UniTask"
   ],
   "includePlatforms": [],
@@ -13,7 +14,15 @@
   "overrideReferences": false,
   "precompiledReferences": [],
   "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
+  "defineConstraints": [
+    "INSTINCT_UNITASK"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.cysharp.unitask",
+      "expression": "",
+      "define": "INSTINCT_UNITASK"
+    }
+  ],
   "noEngineReferences": false
 }

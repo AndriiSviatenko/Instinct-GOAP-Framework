@@ -72,7 +72,7 @@ Window → Package Manager → + → Add package from git URL
 https://github.com/AndriiSviatenko/Instinct-GOAP-Framework.git?path=Assets/InstinctGOAP
 ```
 
-The manifest installs **UniTask** for the async Unity layer and **TextMesh Pro** for sample labels. The core has no dependencies; a core-only setup is covered in [Installation](Assets/InstinctGOAP/Documentation/01-installation.md#core-only-installation).
+The manifest installs **UniTask** for the async action layer and **TextMesh Pro** for sample labels. Both are optional: without UniTask the `Instinct.GOAP.Unity.Async` assembly is skipped instead of failing to compile. The core has no dependencies at all — see [Installation](Assets/InstinctGOAP/Documentation/01-installation.md).
 
 ---
 
@@ -141,7 +141,7 @@ Each sample is its own assembly. Deleting any of them cannot break the framework
 ## Requirements
 
 - Unity 2022.3 LTS or newer (developed on Unity 6000.0), Mono and IL2CPP
-- [UniTask](https://github.com/Cysharp/UniTask) 2.5+ — only for the async action layer
+- [UniTask](https://github.com/Cysharp/UniTask) 2.5+ — optional, only for the async action layer (`Instinct.GOAP.Unity.Async`)
 
 ---
 
