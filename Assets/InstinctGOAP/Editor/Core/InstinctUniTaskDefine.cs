@@ -22,6 +22,7 @@ namespace Instinct.GOAP.EditorTools
     {
         private const string Define = "INSTINCT_UNITASK";
         private const string UniTaskAssembly = "UniTask";
+        private const int MaxRetries = 100;
 
 #if INSTINCT_UNITASK
         private const bool FromPackage = true;
@@ -29,13 +30,17 @@ namespace Instinct.GOAP.EditorTools
         private const bool FromPackage = false;
 #endif
 
+        private static int _retries;
+
         static InstinctUniTaskDefine() => EditorApplication.delayCall += Sync;
 
         private static void Sync()
         {
             if (EditorApplication.isCompiling || EditorApplication.isUpdating)
             {
-                EditorApplication.delayCall += Sync;
+                // Bounded: a batchmode run can quit before the editor ever settles, and an
+                // unbounded re-queue would spin for as long as it lives.
+                if (_retries++ < MaxRetries) EditorApplication.delayCall += Sync;
                 return;
             }
 
@@ -64,6 +69,7 @@ namespace Instinct.GOAP.EditorTools
             else return;
 
             PlayerSettings.SetScriptingDefineSymbols(target, string.Join(";", symbols));
+            AssetDatabase.SaveAssets();
         }
 
         private static bool IsUniTaskPresent()
