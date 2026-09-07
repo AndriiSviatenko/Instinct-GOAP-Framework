@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Instinct GOAP Docs</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap"/>
+<style>
+:root{
+  --bg:#08080a;--bg1:#0d0d10;--bg2:#131317;--bg3:#1a1a20;
+  --red:#e8192c;--red-soft:rgba(232,25,44,.12);--red-line:rgba(232,25,44,.3);
+  --white:#fff;--txt:#e9e9ee;--txt2:#c2c2cc;--txt3:#8a8a95;--txt4:#5a5a66;
+  --line:#1e1e25;--line2:#2a2a33;
+  --green:#4fbf7a;--amber:#f0ad33;--blue:#79b8ff;--violet:#b48ef5;
+  --display:'Rajdhani',system-ui,sans-serif;
+  --sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --nav:270px;--rail:212px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:24px;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--txt2);font-family:var(--sans);font-size:15.5px;line-height:1.7}
+img,svg{max-width:100%}
+::selection{background:var(--red);color:#fff}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:var(--bg1)}
+::-webkit-scrollbar-thumb{background:#24242c;border-radius:5px}
+::-webkit-scrollbar-thumb:hover{background:#33333e}
+a{color:var(--red);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:3px}
+
+/* ─────────── sidebar ─────────── */
+.side{position:fixed;inset:0 auto 0 0;width:var(--nav);background:var(--bg1);border-right:1px solid var(--line);
+      display:flex;flex-direction:column;z-index:60}
+.brand{display:flex;align-items:center;gap:11px;padding:18px 18px 14px}
+.brand svg{width:34px;height:34px;flex:none}
+.brand-name{font-family:var(--display);font-size:20px;font-weight:700;color:var(--white);line-height:1.05;letter-spacing:.01em}
+.brand-name span{color:var(--red)}
+.brand-sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt4);margin-top:3px}
+.search{padding:0 14px 12px}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--line2);border-radius:7px;padding:7px 10px}
+.search-box:focus-within{border-color:var(--red-line)}
+.search-box svg{width:14px;height:14px;flex:none;stroke:var(--txt4)}
+.search input{flex:1;min-width:0;background:none;border:0;color:var(--txt);font:400 13.5px var(--sans);outline:none}
+.search input::placeholder{color:var(--txt4)}
+.search kbd{font:500 10px var(--mono);color:var(--txt4);border:1px solid var(--line2);border-radius:4px;padding:1px 5px}
+.navwrap{flex:1;overflow-y:auto;padding:4px 0 28px}
+.navgroup{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--txt4);padding:16px 20px 6px}
+.side a{display:flex;align-items:center;gap:10px;padding:6px 20px;color:var(--txt3);font-size:14px;
+        border-left:2px solid transparent;transition:color .13s,background .13s,border-color .13s}
+.side a:hover{color:var(--white);background:rgba(255,255,255,.03);text-decoration:none}
+.side a.on{color:var(--red);border-left-color:var(--red);background:var(--red-soft)}
+.side a .n{font:500 11px var(--mono);color:var(--txt4);width:18px;flex:none}
+.side a.on .n{color:var(--red)}
+.no-hits{display:none;padding:10px 20px;font-size:13px;color:var(--txt4)}
+
+/* ─────────── layout ─────────── */
+main{margin-left:var(--nav);min-width:0;overflow-x:clip}
+.wrap{max-width:1180px;padding:0 44px}
+section{padding:54px 0;border-bottom:1px solid var(--line);scroll-margin-top:20px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-n{font:700 12px var(--mono);color:var(--red)}
+.sec-kicker{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--txt4)}
+h2{font-family:var(--display);font-size:36px;font-weight:700;color:var(--white);letter-spacing:0;line-height:1.1;
+   margin-bottom:12px;text-wrap:balance}
+h3{font-family:var(--display);font-size:24px;font-weight:600;color:var(--white);margin:38px 0 12px;scroll-margin-top:20px}
+h3:first-of-type{margin-top:26px}
+h4{font-size:16px;font-weight:700;color:var(--white);margin:22px 0 8px}
+p{max-width:72ch;margin-bottom:14px}
+.lead{font-size:17px;color:var(--txt2);max-width:70ch;margin-bottom:26px}
+ul,ol{margin:0 0 16px 20px;max-width:72ch}
+li{margin-bottom:6px}
+li::marker{color:var(--txt4)}
+strong{color:var(--white);font-weight:700}
+em{color:var(--txt);font-style:italic}
+
+/* ─────────── hero ─────────── */
+.hero{padding:64px 0 46px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-160px;right:-80px;width:520px;height:520px;
+  background:radial-gradient(circle,rgba(232,25,44,.1),transparent 65%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;font:700 10px var(--sans);letter-spacing:.15em;text-transform:uppercase;
+  color:var(--red);border:1px solid var(--red-line);background:var(--red-soft);border-radius:99px;padding:4px 12px;margin-bottom:18px}
+h1{font-family:var(--display);font-size:60px;font-weight:700;line-height:1;color:var(--white);letter-spacing:-.01em;margin-bottom:14px}
+h1 span{color:var(--red)}
+.hero p{font-size:18px;color:var(--txt2);max-width:56ch;margin-bottom:22px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:26px}
+.chip{font:400 11.5px var(--mono);color:var(--txt3);border:1px solid var(--line2);border-radius:99px;padding:3px 11px}
+.chip.hot{color:var(--red);border-color:var(--red-line);background:var(--red-soft)}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:500;padding:11px 18px;border-radius:8px;
+     border:1px solid var(--line2);background:var(--bg1);color:var(--txt);transition:.14s}
+.btn:hover{border-color:var(--red-line);background:var(--red-soft);color:var(--white);text-decoration:none}
+.btn.solid{background:var(--red);border-color:var(--red);color:#fff}
+.btn.solid:hover{background:#ff2f41;color:#fff}
+.btn .a{font:500 12px var(--mono);opacity:.72}
+
+/* ─────────── cards ─────────── */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-bottom:24px}
+.card{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:16px 18px;transition:.14s;display:block;color:inherit}
+a.card:hover{border-color:var(--red-line);background:var(--bg2);transform:translateY(-2px);text-decoration:none}
+.card-k{font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:7px}
+.card-t{font-size:15.5px;font-weight:700;color:var(--white);margin-bottom:5px}
+.card-d{font-size:13.5px;color:var(--txt3);line-height:1.6}
+
+/* ─────────── steps ─────────── */
+.steps{counter-reset:st;display:flex;flex-direction:column;gap:8px}
+.step{display:grid;grid-template-columns:34px minmax(0,1fr);gap:16px;padding:18px 0;border-top:1px solid var(--line)}
+.step:first-child{border-top:0}
+.step::before{counter-increment:st;content:counter(st);width:30px;height:30px;border-radius:8px;background:var(--red);color:#fff;
+  font:700 14px var(--mono);display:flex;align-items:center;justify-content:center;margin-top:2px}
+.step h4{font-family:var(--display);font-size:20px;font-weight:600;margin:0 0 6px}
+.step > div{min-width:0}
+
+/* ─────────── code ─────────── */
+.snippet{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:18px;background:var(--bg1);max-width:940px}
+.snippet-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 12px;background:var(--bg2);border-bottom:1px solid var(--line)}
+.snippet-name{font:400 11.5px var(--mono);color:var(--txt4)}
+.copy{font:500 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--txt3);background:none;border:1px solid var(--line2);
+      border-radius:5px;padding:3px 9px;cursor:pointer;transition:.14s}
+.copy:hover{color:var(--white);border-color:var(--red-line);background:var(--red-soft)}
+.copy.done{color:var(--green);border-color:rgba(79,191,122,.4)}
+pre{margin:0;padding:15px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.75;color:#d2d2d8;white-space:pre;tab-size:4}
+.kw{color:#ff7189}.ty{color:var(--blue)}.st{color:#98c379}.cm{color:#5f5f6b}.fn{color:#e2d38a}.nu{color:var(--amber)}
+code{font-family:var(--mono);font-size:12.5px;background:var(--bg2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--blue)}
+.term{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:12.5px;
+      line-height:1.75;color:#d2d2d8;white-space:pre;overflow-x:auto;margin-bottom:18px;max-width:940px}
+
+/* ─────────── notes ─────────── */
+.note{border:1px solid var(--line);border-left:3px solid var(--red);background:var(--bg1);border-radius:0 10px 10px 0;
+      padding:14px 18px;margin-bottom:18px;max-width:76ch;font-size:14.5px}
+.note b{color:var(--white)}
+.note.ok{border-left-color:var(--green)}
+.note.warn{border-left-color:var(--amber)}
+
+/* ─────────── tables ─────────── */
+.tbl{overflow-x:auto;margin-bottom:22px;border:1px solid var(--line);border-radius:10px;max-width:1000px}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+th{background:var(--bg2);text-align:left;font:700 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--txt4);
+   padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid #15151b;color:var(--txt2);vertical-align:top;line-height:1.6}
+tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:rgba(255,255,255,.018)}
+.api td:first-child{font-family:var(--mono);font-size:12.5px;color:var(--blue);white-space:nowrap}
+.g{color:var(--green)}.a{color:var(--amber)}.r{color:var(--red)}
+.pill{display:inline-block;font:700 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:99px;
+      background:var(--bg3);color:var(--txt3)}
+.pill.red{background:var(--red-soft);color:var(--red)}
+.pill.grn{background:rgba(79,191,122,.14);color:var(--green)}
+.pill.amb{background:rgba(240,173,51,.14);color:var(--amber)}
+
+/* ─────────── flow diagram ─────────── */
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:26px}
+.flow-step{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;position:relative}
+.flow-step::after{content:'→';position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--txt4);font-size:14px}
+.flow-step:last-child::after{content:''}
+.flow-k{font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.flow-t{font-size:15px;font-weight:700;color:var(--white);margin-bottom:4px}
+.flow-d{font-size:13px;color:var(--txt3);line-height:1.55}
+
+/* ─────────── two-column ─────────── */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px;margin-bottom:22px;max-width:1000px}
+.two .panel{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:18px 20px;min-width:0}
+.two .panel h4{margin-top:0}
+.two .snippet{margin-bottom:0;background:var(--bg2)}
+
+/* ─────────── right rail ─────────── */
+.rail{position:fixed;top:0;right:0;width:var(--rail);height:100vh;padding:34px 20px;overflow-y:auto;display:none}
+.rail-t{font:700 10px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--txt4);margin-bottom:12px}
+.rail a{display:block;font-size:13px;color:var(--txt3);padding:4px 0 4px 12px;border-left:2px solid var(--line);line-height:1.45}
+.rail a:hover{color:var(--white);text-decoration:none}
+.rail a.on{color:var(--red);border-left-color:var(--red)}
+
+/* ─────────── footer / to-top ─────────── */
+footer{padding:34px 0 56px;color:var(--txt4);font-size:13px}
+footer a{color:var(--txt3)}
+.top{position:fixed;right:22px;bottom:22px;width:40px;height:40px;border-radius:10px;background:var(--bg2);border:1px solid var(--line2);
+     color:var(--txt3);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:.2s;z-index:50}
+.top.show{opacity:1;pointer-events:auto}
+.top:hover{color:var(--white);border-color:var(--red-line);background:var(--red-soft)}
+
+@media (min-width:1500px){
+  .rail{display:block}
+  main{margin-right:var(--rail)}
+}
+@media (max-width:1240px){
+  :root{--nav:236px}
+  .wrap{padding:0 32px}
+  h1{font-size:50px}
+}
+@media (max-width:960px){
+  .side{position:sticky;top:0;inset:auto;width:auto;height:auto;border-right:0;border-bottom:1px solid var(--line);
+        background:rgba(13,13,16,.97);backdrop-filter:blur(8px)}
+  .brand{padding:12px 16px 10px}
+  .brand-sub{display:none}
+  .search{padding:0 16px 10px}
+  .navwrap{display:flex;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:0 10px 3px;gap:2px}
+  .navgroup{display:none}
+  .side a{flex:0 0 auto;white-space:nowrap;border-left:0;border-bottom:2px solid transparent;padding:8px 11px;font-size:13.5px}
+  .side a.on{border-left-color:transparent;border-bottom-color:var(--red);background:transparent}
+  .side a .n{display:none}
+  main{margin-left:0}
+  html{scroll-padding-top:110px}
+  section{padding:40px 0;scroll-margin-top:106px}
+  h3{scroll-margin-top:106px}
+  .wrap{padding:0 18px}
+  .hero{padding:34px 0 32px}
+  .hero-grid{grid-template-columns:1fr;gap:24px}
+  .hero-art{display:none}
+  h1{font-size:38px}
+  .hero p{font-size:16px}
+  h2{font-size:28px}
+  h3{font-size:21px}
+  .two,.cards,.flow{grid-template-columns:1fr}
+  .flow-step::after{content:''}
+}
+@media (max-width:430px){
+  h1{font-size:32px}
+  .wrap{padding:0 14px}
+  .step{grid-template-columns:1fr;gap:8px}
+  .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 512 512">
+    <rect width="512" height="512" rx="72" fill="#0d0d10"/>
+    <g fill="#e8192c">
+      <circle cx="188" cy="198" r="64"/><circle cx="254" cy="168" r="68"/><circle cx="322" cy="194" r="60"/>
+      <circle cx="356" cy="252" r="54"/><circle cx="178" cy="270" r="62"/><circle cx="248" cy="274" r="70"/>
+      <circle cx="318" cy="292" r="56"/>
+      <path d="M232 322 h48 v42 a24 24 0 0 1 -48 0 z"/>
+    </g>
+    <g fill="none" stroke="#0d0d10" stroke-width="11" stroke-linecap="round" opacity=".5">
+      <path d="M256 132 V336"/><path d="M196 186 q42 26 10 64"/><path d="M312 180 q-38 30 -6 68"/>
+      <path d="M186 300 q40 14 62 -6"/><path d="M330 250 q-30 10 -34 40"/>
+    </g>
+    <path d="M202 256 L258 220 L320 252" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="202" cy="256" r="14" fill="#fff"/><circle cx="258" cy="220" r="12" fill="#fff"/>
+    <circle cx="320" cy="252" r="18" fill="#fff"/><circle cx="320" cy="252" r="7.5" fill="#e8192c"/>
+  </symbol>
+</svg>
+
+<nav class="side">
+  <div class="brand">
+    <svg viewBox="0 0 512 512"><use href="#logo"/></svg>
+    <div>
+      <div class="brand-name">In<span>stinct</span></div>
+      <div class="brand-sub">GOAP · v1.0</div>
+    </div>
+  </div>
+  <div class="search">
+    <label class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the documentation"/>
+      <kbd>/</kbd>
+    </label>
+  </div>
+  <div class="navwrap" id="navwrap">
+    <div class="navgroup">Start</div>
+    <a href="#overview"><span class="n">01</span>Overview</a>
+    <a href="#install"><span class="n">02</span>Install</a>
+    <a href="#quickstart"><span class="n">03</span>Quick start</a>
+    <div class="navgroup">Build</div>
+    <a href="#concepts"><span class="n">04</span>Concepts</a>
+    <a href="#apis"><span class="n">05</span>Choose an API</a>
+    <a href="#integration"><span class="n">06</span>Integration</a>
+    <div class="navgroup">Operate</div>
+    <a href="#debug"><span class="n">07</span>Debugging</a>
+    <a href="#perf"><span class="n">08</span>Performance</a>
+    <div class="navgroup">Reference</div>
+    <a href="#reference"><span class="n">09</span>API reference</a>
+    <a href="#trouble"><span class="n">10</span>Troubleshooting</a>
+    <div class="no-hits" id="nohits">Nothing matches that.</div>
+  </div>
+</nav>
+
+<aside class="rail" id="rail" aria-label="On this page"></aside>
+
+<main>
+<div class="wrap">
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Unity · GOAP planner · v1.0</div>
+      <h1>Instinct <span>GOAP</span></h1>
+      <p>Describe facts, actions and goals. The agent plans the rest — and tells you exactly why it chose what it chose.</p>
+      <div class="chips">
+        <span class="chip hot">Unity 2022.3+</span>
+        <span class="chip">Core runs without Unity</span>
+        <span class="chip">UniTask for async actions</span>
+        <span class="chip">MIT</span>
+      </div>
+      <div class="cta">
+        <a class="btn solid" href="#quickstart"><span class="a">03</span>Build an agent — 15 min</a>
+        <a class="btn" href="#reference"><span class="a">09</span>API reference</a>
+        <a class="btn" href="#trouble"><span class="a">10</span>Troubleshooting</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg width="230" height="230" viewBox="0 0 512 512" aria-hidden="true"><use href="#logo"/></svg>
+    </div>
+  </div>
+</header>
+
+<section id="overview">
+  <div class="sec-head"><span class="sec-n">01</span><span class="sec-kicker">Overview</span></div>
+  <h2>What you get</h2>
+  <p class="lead">A GOAP planner for Unity. You write facts, actions and goals in C#. Each tick it searches for the cheapest sequence of actions that reaches the goal worth the most right now, runs the first action of that sequence, and can print the whole calculation.</p>
+
+  <div class="flow">
+    <div class="flow-step"><div class="flow-k">Sense</div><div class="flow-t">World → facts</div><div class="flow-d">A snapshot of the few values the planner may reason about.</div></div>
+    <div class="flow-step"><div class="flow-k">Score</div><div class="flow-t">Pick a goal</div><div class="flow-d">Every relevant goal is planned; best <code>Priority − Cost</code> wins.</div></div>
+    <div class="flow-step"><div class="flow-k">Plan</div><div class="flow-t">Forward A*</div><div class="flow-d">The cheapest chain of actions from now to that goal.</div></div>
+    <div class="flow-step"><div class="flow-k">Act</div><div class="flow-t">Run step one</div><div class="flow-d">Only the first action runs; the rest is re-derived as the world moves.</div></div>
+  </div>
+
+  <h3 id="ov-features">Features</h3>
+  <div class="cards">
+    <div class="card"><div class="card-k">Planner</div><div class="card-t">Forward A*</div><div class="card-d">Searches from the current state towards the goal with fixed depth and iteration budgets. When it cannot finish it says which limit stopped it, and never returns half a plan.</div></div>
+    <div class="card"><div class="card-k">Core</div><div class="card-t">Typed identity</div><div class="card-d"><code>Fact&lt;T&gt;</code>, <code>ActionKey</code>, <code>GoalKey</code>. No strings: a rename is a compile error.</div></div>
+    <div class="card"><div class="card-k">Core</div><div class="card-t">Typed facts</div><div class="card-d"><code>bool</code>, <code>int</code>, <code>float</code> and any 32-bit enum. All facts of one agent live in a single array, so copying a state during the search is one array copy.</div></div>
+    <div class="card"><div class="card-k">Flow API</div><div class="card-t">Two-way bindings</div><div class="card-d">One declaration feeds the planner and writes an action's effects back into your world.</div></div>
+    <div class="card"><div class="card-k">Flow API</div><div class="card-t">Async actions</div><div class="card-d">An action body is ordinary <code>async</code> code with <code>if</code>, <code>while</code> and <code>await</code>. When the plan changes, its cancellation token is cancelled and every await simply stops.</div></div>
+    <div class="card"><div class="card-k">Tooling</div><div class="card-t">Explain &amp; validate</div><div class="card-d">Prints what every goal scored and why the others lost, and reports domain mistakes — goals nothing can reach, actions that change nothing — before you press Play.</div></div>
+    <div class="card"><div class="card-k">Tooling</div><div class="card-t">Graph window</div><div class="card-d">Actions → facts → goals, with the running plan highlighted while you play.</div></div>
+    <div class="card"><div class="card-k">Core</div><div class="card-t">Runs without Unity</div><div class="card-d">The core references no <code>UnityEngine</code> type, so you can unit-test a domain in a normal .NET project — no Editor, no play mode, milliseconds per run.</div></div>
+  </div>
+
+  <h3 id="ov-where">Where to look</h3>
+  <div class="cards">
+    <a class="card" href="#quickstart"><div class="card-k">Start</div><div class="card-t">Quick start →</div><div class="card-d">A working agent in six steps. The finished code ships in <code>Samples/Farmer</code>.</div></a>
+    <a class="card" href="#apis"><div class="card-k">Decide</div><div class="card-t">Choose an API →</div><div class="card-d">Flow API or command API — one table, then commit per agent.</div></a>
+    <a class="card" href="#integration"><div class="card-k">Wire it up</div><div class="card-t">Integration →</div><div class="card-d">Sensing, movement, many agents, CI checks.</div></a>
+    <a class="card" href="#reference"><div class="card-k">Look up</div><div class="card-t">API reference →</div><div class="card-d">Every public type, grouped and scannable.</div></a>
+    <a class="card" href="#debug"><div class="card-k">Inspect</div><div class="card-t">Debugging →</div><div class="card-d">Explain output, the graph window, domain validation.</div></a>
+    <a class="card" href="#perf"><div class="card-k">Budget</div><div class="card-t">Performance →</div><div class="card-d">Measured cost per replan, per tick, and the one trap to avoid.</div></a>
+  </div>
+
+  <h3 id="ov-samples">Samples in the package</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Sample</th><th>What it shows</th><th>Read it when</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Chef</strong> <span class="pill">planner only</span></td><td>A domain with no MonoBehaviour and no scene</td><td>First — it is the shortest complete example</td></tr>
+      <tr><td><strong>Guard</strong> <span class="pill">full NPC</span></td><td>Senses → facts, actions, goals, executor, policy, host</td><td>You are integrating the command API</td></tr>
+      <tr><td><strong>Stalker</strong> <span class="pill">large</span></td><td>Hunger, radiation, artifacts, combat, trade — many goals competing</td><td>You want to see how a domain behaves once it grows</td></tr>
+      <tr><td><strong>Farmer</strong> <span class="pill red">flow API</span></td><td>Bindings, async action classes, <code>GoapBrain</code>, one-line host</td><td>You are building a new agent</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="install">
+  <div class="sec-head"><span class="sec-n">02</span><span class="sec-kicker">Setup</span></div>
+  <h2>Install</h2>
+  <p class="lead">Copy the folder, reference the assembly, done. Nothing inside depends on where the folder lives.</p>
+
+  <div class="steps">
+    <div class="step"><div>
+      <h4>Drop the package into your project</h4>
+      <p>Put <code>InstinctGOAP/</code> anywhere under <code>Assets/</code>. Samples and tests are separate assemblies — deleting either cannot break the framework.</p>
+    </div></div>
+
+    <div class="step"><div>
+      <h4>Install UniTask — only for async actions</h4>
+      <p>Package Manager → <em>Add package from git URL</em>:</p>
+      <div class="term">https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.9</div>
+    </div></div>
+
+    <div class="step"><div>
+      <h4>Reference the assemblies</h4>
+      <p>Add <code>Instinct.GOAP</code> to your gameplay asmdef, plus <code>Instinct.GOAP.Unity</code> if you use async actions, <code>IMoveContext</code> or the MonoBehaviour host. Code without an asmdef of its own already sees both.</p>
+    </div></div>
+
+    <div class="step"><div>
+      <h4>Verify in four lines</h4>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">SmokeTest.cs</span><button class="copy">Copy</button></div><pre><span class="kw">public sealed class</span> <span class="ty">Facts</span> { <span class="kw">public static readonly</span> <span class="ty">Fact</span>&lt;<span class="kw">bool</span>&gt; Done = <span class="ty">Fact</span>&lt;<span class="kw">bool</span>&gt;.<span class="fn">Declare</span>(); }
+
+<span class="kw">var</span> action = <span class="ty">ActionBuilder</span>.<span class="fn">Create</span>(<span class="ty">ActionKey</span>.<span class="fn">Named</span>(<span class="st">"Finish"</span>)).<span class="fn">Effect</span>(Facts.Done, <span class="kw">true</span>).<span class="fn">Cost</span>(<span class="nu">1f</span>).<span class="fn">Build</span>();
+<span class="kw">var</span> goal   = <span class="ty">GoalBuilder</span>.<span class="fn">Create</span>(<span class="ty">GoalKey</span>.<span class="fn">Named</span>(<span class="st">"BeDone"</span>)).<span class="fn">Satisfy</span>(Facts.Done, <span class="kw">true</span>).<span class="fn">Priority</span>(<span class="nu">1f</span>).<span class="fn">Build</span>();
+
+<span class="ty">Debug</span>.<span class="fn">Log</span>(<span class="ty">GoapExplain</span>.<span class="fn">Chain</span>(<span class="kw">new</span> <span class="ty">GoapPlanner</span>().<span class="fn">BuildPlan</span>(<span class="kw">new</span>[]{ action }, goal, <span class="ty">WorldState</span>.<span class="fn">For</span>&lt;Facts&gt;())));
+<span class="cm">// Finish</span></pre></div>
+      <p>Then open <code>Window → Analysis → GOAP Graph</code>; it lists every domain in the project.</p>
+    </div></div>
+  </div>
+
+  <h3 id="install-nouni">Without UniTask</h3>
+  <div class="note warn"><b>Heads up:</b> <code>Instinct.GOAP.Unity</code> references UniTask unconditionally, so that assembly will not compile without it. The core is unaffected — it has no dependencies at all.</div>
+  <p>Delete <code>Runtime/Unity/GoapActionAsync.cs</code> and <code>GoapAsync.cs</code>, drop <code>"UniTask"</code> from <code>Instinct.GOAP.Unity.asmdef</code>, and remove the Guard and Stalker samples' reference to it. You keep the planner, the agent, step-based behaviours (<code>Instant</code>, <code>Run</code>, <code>Wait</code>, <code>Sequence</code>), <code>UnitySteps.MoveTo</code>, the host and the graph window — only <code>async</code> bodies are lost.</p>
+
+  <h3 id="install-upm">As a UPM package</h3>
+  <div class="snippet"><div class="snippet-bar"><span class="snippet-name">Package Manager → Add package from git URL</span><button class="copy">Copy</button></div><pre>https://github.com/&lt;user&gt;/&lt;repo&gt;.git?path=Assets/InstinctGOAP</pre></div>
+  <p>The manifest lives at <code>Assets/InstinctGOAP/package.json</code>. For a UPM-only distribution, rename <code>Samples</code> to <code>Samples~</code> so consumers import them from Package Manager instead of compiling them.</p>
+</section>
+
+<section id="quickstart">
+  <div class="sec-head"><span class="sec-n">03</span><span class="sec-kicker">Tutorial</span></div>
+  <h2>Quick start — a farmer in 15 minutes</h2>
+  <p class="lead">An agent that harvests until it runs out of energy, then walks home to sleep. You never write “if tired, go home” — it plans that itself.</p>
+
+  <div class="steps">
+    <div class="step"><div>
+      <h4>The context — your object</h4>
+      <p>The framework never owns your game state; it reads it and writes back through you. <code>IMoveContext</code> unlocks <code>MoveTo(...)</code> inside actions, <code>ITickContext</code> unlocks <code>Steps.Wait(...)</code>.</p>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">FarmerContext.cs</span><button class="copy">Copy</button></div><pre><span class="kw">public sealed class</span> <span class="ty">FarmerContext</span> : <span class="ty">IMoveContext</span>, <span class="ty">ITickContext</span>
+{
+    <span class="kw">public</span> <span class="ty">Transform</span> Self, Home, Field;
+    <span class="kw">public int</span> Energy = <span class="nu">100</span>;
+    <span class="kw">public int</span> CropsGrown;
+
+    <span class="kw">public</span> <span class="ty">Vector3</span> Position   =&gt; Self.position;
+    <span class="kw">public float</span> DeltaTime  =&gt; <span class="ty">Time</span>.deltaTime;
+
+    <span class="kw">public float</span> <span class="fn">DistanceTo</span>(<span class="ty">Transform</span> t)
+        =&gt; Self &amp;&amp; t ? <span class="ty">Vector3</span>.<span class="fn">Distance</span>(Self.position, t.position) : <span class="nu">999f</span>;
+
+    <span class="cm">// The one movement implementation in the project. Actions only say "go there".</span>
+    <span class="kw">public bool</span> <span class="fn">MoveTowards</span>(<span class="ty">Vector3</span> target) { <span class="cm">/* step; true on arrival */</span> }
+}</pre></div>
+    </div></div>
+
+    <div class="step"><div>
+      <h4>The facts — what the planner may reason about</h4>
+      <p>Each fact is one slot in the agent's state. Declare a fact only if an action changes it or a goal tests it — everything else stays in your own class.</p>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">FarmerFacts.cs</span><button class="copy">Copy</button></div><pre><span class="kw">public sealed class</span> <span class="ty">FarmerFacts</span>
+{
+    <span class="kw">public static readonly</span> <span class="ty">Fact</span>&lt;<span class="kw">int</span>&gt;   Energy          = <span class="ty">Fact</span>&lt;<span class="kw">int</span>&gt;.<span class="fn">Declare</span>();
+    <span class="kw">public static readonly</span> <span class="ty">Fact</span>&lt;<span class="kw">float</span>&gt; DistanceToHome  = <span class="ty">Fact</span>&lt;<span class="kw">float</span>&gt;.<span class="fn">Declare</span>();
+    <span class="kw">public static readonly</span> <span class="ty">Fact</span>&lt;<span class="kw">float</span>&gt; DistanceToField = <span class="ty">Fact</span>&lt;<span class="kw">float</span>&gt;.<span class="fn">Declare</span>();
+    <span class="kw">public static readonly</span> <span class="ty">Fact</span>&lt;<span class="kw">int</span>&gt;   CropsGrown      = <span class="ty">Fact</span>&lt;<span class="kw">int</span>&gt;.<span class="fn">Declare</span>();
+}</pre></div>
+      <div class="note"><b>Declare each fact as its own static field.</b> A <code>Fact&lt;T&gt;[]</code> array is invisible to schema discovery, and the failure shows up later as “does not belong to this state's schema”.</div>
+    </div></div>
+
+    <div class="step"><div>
+      <h4>Keys — identity without strings</h4>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">FarmerKeys.cs</span><button class="copy">Copy</button></div><pre><span class="kw">public static class</span> <span class="ty">FarmerActionKeys</span>
+{
+    <span class="kw">public static readonly</span> <span class="ty">ActionKey</span> Harvest     = <span class="ty">ActionKey</span>.<span class="fn">Declare</span>();
+    <span class="kw">public static readonly</span> <span class="ty">ActionKey</span> Rest        = <span class="ty">ActionKey</span>.<span class="fn">Declare</span>();
+    <span class="kw">public static readonly</span> <span class="ty">ActionKey</span> WalkToField = <span class="ty">ActionKey</span>.<span class="fn">Declare</span>();
+    <span class="kw">public static readonly</span> <span class="ty">ActionKey</span> WalkToHome  = <span class="ty">ActionKey</span>.<span class="fn">Declare</span>();
+}
+
+<span class="kw">public static class</span> <span class="ty">FarmerGoalKeys</span>
+{
+    <span class="kw">public static readonly</span> <span class="ty">GoalKey</span> WorkTheField = <span class="ty">GoalKey</span>.<span class="fn">Declare</span>();
+    <span class="kw">public static readonly</span> <span class="ty">GoalKey</span> Recover      = <span class="ty">GoalKey</span>.<span class="fn">Declare</span>();
+}</pre></div>
+    </div></div>
+
+    <div class="step"><div>
+      <h4>Actions — what it changes, and what it does</h4>
+      <p><code>Setup()</code> is what the action promises the planner. <code>Run()</code> is what it does in the game.</p>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">FarmerActions.cs</span><button class="copy">Copy</button></div><pre><span class="kw">public sealed class</span> <span class="ty">Harvest</span> : <span class="ty">GoapAction</span>&lt;<span class="ty">FarmerContext</span>&gt;
+{
+    <span class="kw">protected override</span> <span class="ty">ActionKey</span> Key =&gt; FarmerActionKeys.Harvest;
+
+    <span class="kw">protected override void</span> <span class="fn">Setup</span>()
+    {
+        <span class="fn">Require</span>(FarmerFacts.DistanceToField, <span class="ty">Compare</span>.LessOrEqual, <span class="nu">1f</span>);
+        <span class="fn">Require</span>(FarmerFacts.Energy, <span class="ty">Compare</span>.GreaterOrEqual, <span class="nu">25</span>);
+        <span class="fn">Add</span>(FarmerFacts.Energy, <span class="nu">-25</span>, min: <span class="nu">0</span>, max: <span class="nu">100</span>);
+        <span class="fn">Add</span>(FarmerFacts.CropsGrown, <span class="nu">+1</span>);
+        <span class="fn">Cost</span>(<span class="nu">1f</span>);
+    }
+
+    <span class="kw">protected override async</span> <span class="ty">UniTask</span> <span class="fn">Run</span>(<span class="ty">FarmerContext</span> c) =&gt; <span class="kw">await</span> <span class="fn">Wait</span>(<span class="nu">0.5f</span>);
+}
+
+<span class="kw">public sealed class</span> <span class="ty">WalkToField</span> : <span class="ty">GoapAction</span>&lt;<span class="ty">FarmerContext</span>&gt;
+{
+    <span class="kw">protected override</span> <span class="ty">ActionKey</span> Key =&gt; FarmerActionKeys.WalkToField;
+
+    <span class="kw">protected override void</span> <span class="fn">Setup</span>()
+    {
+        <span class="fn">Require</span>(FarmerFacts.DistanceToField, <span class="ty">Compare</span>.Greater, <span class="nu">1f</span>);
+        <span class="fn">Effect</span>(FarmerFacts.DistanceToField, <span class="nu">0f</span>);
+        <span class="fn">Cost</span>(<span class="nu">1f</span>);
+    }
+
+    <span class="kw">protected override async</span> <span class="ty">UniTask</span> <span class="fn">Run</span>(<span class="ty">FarmerContext</span> c)
+    {
+        <span class="kw">if</span> (c.Field == <span class="kw">null</span>) <span class="fn">Fail</span>(<span class="st">"field is not assigned"</span>);
+        <span class="kw">await</span> <span class="fn">MoveTo</span>(c, () =&gt; c.Field.position);   <span class="cm">// target re-read every frame</span>
+    }
+}</pre></div>
+      <div class="tbl"><table>
+        <thead><tr><th>Inside <code>Run</code></th><th>Means</th></tr></thead>
+        <tbody>
+          <tr><td>Reaching the end of the method</td><td class="g">Success — the plan advances</td></tr>
+          <tr><td><code>Fail("reason")</code></td><td class="r">Failure — the plan is dropped and the agent replans</td></tr>
+          <tr><td>A replan happening elsewhere</td><td>The token is cancelled; every <code>await</code> stops where it stood. No cleanup code</td></tr>
+          <tr><td>Available awaits</td><td><code>Wait</code>, <code>NextFrame</code>, <code>Until</code>, <code>While</code>, <code>MoveTo</code>, <code>Timeout</code></td></tr>
+        </tbody>
+      </table></div>
+    </div></div>
+
+    <div class="step"><div>
+      <h4>The domain — bind, register, declare goals</h4>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">FarmerBrain.cs</span><button class="copy">Copy</button></div><pre><span class="kw">public static</span> <span class="ty">GoapDomain</span>&lt;<span class="ty">FarmerContext</span>&gt; <span class="fn">Build</span>()
+{
+    <span class="kw">var</span> d = <span class="ty">GoapDomainBuilder</span>&lt;<span class="ty">FarmerContext</span>&gt;.<span class="fn">For</span>&lt;<span class="ty">FarmerFacts</span>&gt;();
+
+    <span class="cm">// Two-way: world -&gt; state before planning, effects -&gt; world after success.</span>
+    d.<span class="fn">Bind</span>(FarmerFacts.Energy,     c =&gt; c.Energy,     (c, v) =&gt; c.Energy = v);
+    d.<span class="fn">Bind</span>(FarmerFacts.CropsGrown, c =&gt; c.CropsGrown, (c, v) =&gt; c.CropsGrown = v);
+
+    <span class="cm">// Derived values are read-only: movement changes them, not an effect.</span>
+    d.<span class="fn">Bind</span>(FarmerFacts.DistanceToHome,  c =&gt; c.<span class="fn">DistanceTo</span>(c.Home));
+    d.<span class="fn">Bind</span>(FarmerFacts.DistanceToField, c =&gt; c.<span class="fn">DistanceTo</span>(c.Field));
+
+    d.<span class="fn">Use</span>(<span class="kw">new</span> <span class="ty">WalkToField</span>(), <span class="kw">new</span> <span class="ty">WalkToHome</span>(), <span class="kw">new</span> <span class="ty">Harvest</span>(), <span class="kw">new</span> <span class="ty">Rest</span>());
+
+    d.<span class="fn">Goal</span>(FarmerGoalKeys.WorkTheField)
+        .<span class="fn">Satisfy</span>(FarmerFacts.Energy, <span class="ty">Compare</span>.LessOrEqual, <span class="nu">15</span>)
+        .<span class="fn">RelevantWhen</span>(s =&gt; s.<span class="fn">Get</span>(FarmerFacts.Energy) &gt;= <span class="nu">45</span>)
+        .<span class="fn">Priority</span>(<span class="nu">40</span>)
+        .<span class="fn">Heuristic</span>(s =&gt; (s.<span class="fn">Get</span>(FarmerFacts.Energy) - <span class="nu">15</span>) / <span class="nu">60f</span>);
+
+    d.<span class="fn">Goal</span>(FarmerGoalKeys.Recover)
+        .<span class="fn">Satisfy</span>(FarmerFacts.Energy, <span class="ty">Compare</span>.GreaterOrEqual, <span class="nu">100</span>)
+        .<span class="fn">RelevantWhen</span>(s =&gt; s.<span class="fn">Get</span>(FarmerFacts.Energy) &lt; <span class="nu">45</span>)
+        .<span class="fn">Priority</span>(<span class="nu">80</span>)
+        .<span class="fn">Heuristic</span>(s =&gt; (<span class="nu">100</span> - s.<span class="fn">Get</span>(FarmerFacts.Energy)) / <span class="nu">100f</span>);
+
+    <span class="kw">return</span> d.<span class="fn">Build</span>();
+}</pre></div>
+      <div class="note warn"><b>Two rules to internalise now.</b> Relevance windows must not leave a gap — <code>&gt;= 45</code> works, <code>&lt; 45</code> rests, so every value belongs to some goal. And build the domain <b>per agent</b>: actions hold per-run state, so one shared domain mixes ten NPCs' timers.</div>
+    </div></div>
+
+    <div class="step"><div>
+      <h4>The host — one call per frame</h4>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">FarmerHost.cs</span><button class="copy">Copy</button></div><pre><span class="kw">private void</span> <span class="fn">Awake</span>()
+{
+    _ctx   = <span class="kw">new</span> <span class="ty">FarmerContext</span> { Self = transform, Home = home, Field = field };
+    _brain = <span class="kw">new</span> <span class="ty">GoapBrain</span>&lt;<span class="ty">FarmerContext</span>&gt;(<span class="ty">FarmerBrain</span>.<span class="fn">Build</span>(), _ctx,
+                 <span class="kw">new</span> <span class="ty">GoapPlanner</span>(maxIterations: <span class="nu">100</span>, maxDepth: <span class="nu">6</span>),
+                 <span class="kw">new</span> <span class="ty">FarmerPolicy</span>());
+
+    <span class="kw">var</span> issues = _brain.Domain.<span class="fn">Describe</span>();   <span class="cm">// null when the domain is clean</span>
+    <span class="kw">if</span> (!<span class="kw">string</span>.<span class="fn">IsNullOrEmpty</span>(issues)) <span class="ty">Debug</span>.<span class="fn">LogWarning</span>(issues);
+}
+
+<span class="kw">private void</span> <span class="fn">Update</span>() =&gt; _brain.<span class="fn">Tick</span>();</pre></div>
+      <p>Press Play, then open the graph window or log a decision:</p>
+      <div class="term">chosen: WorkTheField  cost=2  plan=WalkToField -&gt; Harvest
+  ok   WorkTheField    40 - 2 = 38  (len 2)
+  --   Recover         not relevant</div>
+    </div></div>
+  </div>
+</section>
+
+<section id="concepts">
+  <div class="sec-head"><span class="sec-n">04</span><span class="sec-kicker">Concepts</span></div>
+  <h2>Concepts</h2>
+  <p class="lead">Each tick: snapshot the world, score every relevant goal by <code>Priority − PlanCost</code>, run the first action of the winner.</p>
+
+  <h3 id="c-facts">Facts &amp; world state</h3>
+  <p>A fact is a typed handle to one slot. The class that declares them <em>is</em> the schema — <code>WorldState.For&lt;GuardFacts&gt;()</code> allocates exactly that many slots.</p>
+  <div class="snippet"><div class="snippet-bar"><span class="snippet-name">Declaring facts</span><button class="copy">Copy</button></div><pre><span class="kw">public static readonly</span> <span class="ty">Fact</span>&lt;<span class="kw">bool</span>&gt;  IntruderVisible = <span class="ty">Fact</span>&lt;<span class="kw">bool</span>&gt;.<span class="fn">Declare</span>();
+<span class="kw">public static readonly</span> <span class="ty">Fact</span>&lt;<span class="kw">int</span>&gt;   Ammo            = <span class="ty">Fact</span>&lt;<span class="kw">int</span>&gt;.<span class="fn">Declare</span>();
+<span class="kw">public static readonly</span> <span class="ty">Fact</span>&lt;<span class="ty">Alert</span>&gt; AlertLevel      = <span class="ty">Fact</span>&lt;<span class="ty">Alert</span>&gt;.<span class="fn">Declare</span>();  <span class="cm">// any enum</span>
+
+<span class="cm">// Enums compare like real numbers, because they are stored as one:</span>
+.<span class="fn">Require</span>(GuardFacts.AlertLevel, <span class="ty">Compare</span>.GreaterOrEqual, <span class="ty">Alert</span>.Suspicious)
+.<span class="fn">Effect</span>(GuardFacts.AlertLevel, <span class="ty">Alert</span>.Hunting)</pre></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Rule</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Supported types: <code>bool</code>, <code>int</code>, <code>float</code>, 32-bit enums</td><td>The state is a plain array of numbers, so reference types and <code>long</code>-backed enums are rejected when you declare them</td></tr>
+      <tr><td>Only what actions write or goals test</td><td>Facts size every clone, hash and comparison in the search. Everything else stays in your context</td></tr>
+      <tr><td>Never mutate a state the planner holds</td><td><code>ApplyTo</code> clones first; closed-set states are frozen and throw on write in the Editor and dev builds</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="c-actions">Actions</h3>
+  <p>An action declares three things for the planner: what must be true before it can run, what it changes, and what it costs at this moment. If those three match what the action really does in the game, plans come out correct.</p>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>Effect</th><th>Applied as</th></tr></thead>
+    <tbody>
+      <tr><td>Effect(fact, value)</td><td><code>fact := value</code></td></tr>
+      <tr><td>Add(fact, delta, min, max)</td><td><code>fact := clamp(pre + delta)</code> — <code>int</code> only</td></tr>
+      <tr><td>Copy(target, source)</td><td><code>target := pre.source</code></td></tr>
+      <tr><td>Computed(fact, f)</td><td><code>fact := f(pre)</code></td></tr>
+      <tr><td>DynamicEffect((pre,next) =&gt; …)</td><td>Anything — but invisible to validation and the graph window</td></tr>
+    </tbody>
+  </table></div>
+  <p>Every effect resolves against the <strong>pre-action</strong> state, so declaration order never changes the outcome. <strong>Cost</strong> runs at every expansion during the search, so keep it cheap and pure; it is clamped to <code>≥ 0.01</code>, and returning <code>NaN</code> or <code>Infinity</code> is the supported way to say “this action is unavailable right now”.</p>
+
+  <h3 id="c-goals">Goals</h3>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td>Satisfy(…)</td><td>What ends the search. Several calls are ANDed</td></tr>
+      <tr><td>RelevantWhen(…)</td><td>The gate — an irrelevant goal is never planned. Your cheapest optimisation</td></tr>
+      <tr><td>Priority(…)</td><td>What achieving it is worth; constant or a function of state</td></tr>
+      <tr><td>Heuristic(…)</td><td>Estimated remaining cost. Optional, but the single biggest speed factor</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note warn"><b>The heuristic contract.</b> A* returns an optimal plan only while the heuristic never <em>overestimates</em> the true remaining cost. With no heuristic the planner substitutes <code>0.05</code> — admissible, but nearly uninformed, so the search degenerates towards Dijkstra. Assert it in a test: <code>heuristic(start) ≤ plan.TotalCost</code>.</div>
+
+  <h3 id="c-planner">The planner</h3>
+  <p>Forward A* from the current state towards the goal condition: binary min-heap on <code>f = g + h</code>, a best-known-cost map per state, pooled nodes. <code>maxDepth</code> caps plan length — above it you get <em>no plan</em>, never a truncated one.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>PlanFailure</th><th>Meaning</th><th>First thing to check</th></tr></thead>
+    <tbody>
+      <tr><td><code>AlreadySatisfied</code></td><td>The goal was already true</td><td>A goal that should have been gated by <code>RelevantWhen</code></td></tr>
+      <tr><td class="r"><code>Unreachable</code></td><td>The search space was exhausted</td><td>No action writes the fact the goal tests, or a precondition waits on the world</td></tr>
+      <tr><td class="a"><code>DepthLimit</code></td><td>Every branch hit <code>maxDepth</code></td><td>Count the steps the plan really needs; raise <code>maxDepth</code>, or clamp the counter that makes the chain long</td></tr>
+      <tr><td class="a"><code>IterationLimit</code></td><td>Budget spent before reaching the goal</td><td>A weak or missing heuristic, far more often than a real dead end</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="c-select">Goal selection &amp; policy</h3>
+  <p>Irrelevant goals are dropped, the rest are sorted by <code>Priority + PolicyBias</code> and planned in that order. The pass <strong>stops early</strong> as soon as the next goal's best possible score cannot beat the current winner — exact pruning, because cost is never negative.</p>
+  <div class="two">
+    <div class="panel">
+      <h4>Commitment — <code>UtilityBias</code></h4>
+      <p>Bias the current goal so the agent stops oscillating between two near-equal ones.</p>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">Policy</span><button class="copy">Copy</button></div><pre><span class="kw">public float</span> <span class="fn">UtilityBias</span>(<span class="ty">IGoal</span> g, <span class="ty">IGoal</span> current, <span class="ty">WorldState</span> s)
+    =&gt; current != <span class="kw">null</span> &amp;&amp; g.Key == current.Key
+       ? (g.Key == GoalKeys.Chase ? <span class="nu">6f</span> : <span class="nu">2f</span>)
+       : <span class="nu">0f</span>;</pre></div>
+    </div>
+    <div class="panel">
+      <h4>Interrupts — <code>ShouldAbandonPlan</code></h4>
+      <p>Drop a still-legal plan the moment something more important happens.</p>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">Policy</span><button class="copy">Copy</button></div><pre><span class="kw">public bool</span> <span class="fn">ShouldAbandonPlan</span>(<span class="ty">IPlan</span> plan, <span class="kw">int</span> step, <span class="ty">WorldState</span> s)
+    =&gt; s.<span class="fn">Get</span>(Facts.PlayerVisible)
+       &amp;&amp; plan.Goal.Key != GoalKeys.Chase;</pre></div>
+    </div>
+  </div>
+  <p>The agent replans when there is no plan, the plan finished, the policy says so, the goal stopped being relevant, or the current step's preconditions no longer hold — and never otherwise.</p>
+
+  <h3 id="c-rules">Five rules that keep plans correct</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Rule</th><th>What happens if you break it</th></tr></thead>
+    <tbody>
+      <tr><td>An effect states what the action really changes</td><td><code>AllShelvesMapped := true</code> on an action that visits one shelf makes every plan one action long</td></tr>
+      <tr><td>A heuristic must never overestimate</td><td>Plans stop being optimal, silently</td></tr>
+      <tr><td><code>maxDepth</code> covers the longest chain you expect</td><td>You get <em>no plan</em> instead of a shorter one</td></tr>
+      <tr><td>Never ask “which action is this?” with a string</td><td>A renamed action stops firing without a compile error</td></tr>
+      <tr><td>Relevance windows tile the state space</td><td>A value where no goal is relevant is an agent standing still</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="apis">
+  <div class="sec-head"><span class="sec-n">05</span><span class="sec-kicker">Architecture</span></div>
+  <h2>Choose an API</h2>
+  <p class="lead">The same planner, two entry points. Pick one per agent; do not mix them inside a single agent.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>Flow API <span class="pill red">default</span></th><th>Command API</th></tr></thead>
+    <tbody>
+      <tr><td><strong>You write</strong></td><td>One domain file plus action classes</td><td>Facts, state provider, executor, command type, host</td></tr>
+      <tr><td><strong>Behaviour</strong></td><td><code>async UniTask Run(ctx)</code> or <code>IStep&lt;TCtx&gt;</code></td><td>Your own code, driven by a command you translate</td></tr>
+      <tr><td><strong>World ↔ facts</strong></td><td><code>Bind(fact, read, write)</code></td><td>A hand-written <code>IWorldStateProvider</code></td></tr>
+      <tr><td><strong>Entry point</strong></td><td><code>GoapBrain&lt;TCtx&gt;</code></td><td><code>GoapAgent&lt;TCommand&gt;</code> + <code>GoapAgentHost</code></td></tr>
+      <tr><td><strong>Dependencies</strong></td><td>UniTask, for async bodies</td><td>Core only</td></tr>
+      <tr><td><strong>Reach for it when</strong></td><td class="g">You are building new AI and own the gameplay code</td><td class="g">A command bus, animation FSM or netcode layer already executes orders</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="api-flow">Flow API — the loop</h3>
+  <div class="term">GoapBrain.Tick()
+  └── GoapAgent.Tick()                   snapshot → replan if needed → current action
+        ├── executor.OnSelected(...)     new action? OnExit(previous, false) + OnEnter(new)
+        └── returns the action
+  └── action.Tick(ctx)  →  Running | Success | Failure
+        └── on Success/Failure: agent.NotifyActionComplete(...)
+              ├── action.OnExit(ctx, success)
+              ├── on success: effects mirrored into the world through write-bindings
+              └── on failure: plan cleared → replan next frame</div>
+  <p><strong>Effect mirroring</strong> removes the classic GOAP duplication — <code>Effect(Energy, -25)</code> here and <code>board.Energy -= 25</code> there. After a successful action its own effects are written back through the two-way bindings, touching only the facts it declared. Disable it per action with <code>NoMirror()</code> when the world applies the change itself.</p>
+  <p>Behaviour can also be composed from steps, with no UniTask involved:</p>
+  <div class="snippet"><div class="snippet-bar"><span class="snippet-name">Step-composed action</span><button class="copy">Copy</button></div><pre>d.<span class="fn">Action</span>(Keys.Deliver)
+    .<span class="fn">Require</span>(Facts.HasParcel, <span class="kw">true</span>)
+    .<span class="fn">Effect</span>(Facts.ParcelDelivered, <span class="kw">true</span>)
+    .<span class="fn">Cost</span>(<span class="nu">1f</span>)
+    .<span class="fn">Run</span>(<span class="ty">Steps</span>.<span class="fn">Sequence</span>(
+        <span class="ty">UnitySteps</span>.<span class="fn">MoveTo</span>&lt;<span class="ty">AiContext</span>&gt;(c =&gt; c.Target.position),
+        <span class="ty">Steps</span>.<span class="fn">Wait</span>&lt;<span class="ty">AiContext</span>&gt;(<span class="nu">0.4f</span>),
+        <span class="ty">Steps</span>.<span class="fn">Instant</span>&lt;<span class="ty">AiContext</span>&gt;(c =&gt; c.<span class="fn">DropParcel</span>())));</pre></div>
+
+  <h3 id="api-cmd">Command API — feeding an existing pipeline</h3>
+  <div class="snippet"><div class="snippet-bar"><span class="snippet-name">GuardAgent.cs</span><button class="copy">Copy</button></div><pre><span class="kw">var</span> agent = <span class="kw">new</span> <span class="ty">GoapAgent</span>&lt;<span class="ty">GuardCommand</span>&gt;(
+    <span class="kw">new</span> <span class="ty">GoapPlanner</span>(maxIterations: <span class="nu">200</span>, maxDepth: <span class="nu">6</span>),
+    GuardGoals.<span class="fn">All</span>(), GuardActions.<span class="fn">All</span>(),
+    <span class="kw">new</span> <span class="ty">GuardStateProvider</span>(board),   <span class="cm">// IWorldStateProvider: world -&gt; WorldState</span>
+    <span class="kw">new</span> <span class="ty">GuardExecutor</span>(board));       <span class="cm">// IActionExecutor&lt;T&gt;: IAction -&gt; your command</span>
+
+<span class="ty">GuardCommand</span> command = agent.<span class="fn">Tick</span>();</pre></div>
+  <div class="note"><b>Two gotchas.</b> <code>OnSelected</code> fires <em>every tick</em>, not once per action — compare with the previous <code>ActionKey</code> if you need entry semantics. And <code>GoapAgentHost&lt;TCommand&gt;</code> only calls <code>ExecuteCommand</code> when the command changes by <code>EqualityComparer&lt;TCommand&gt;.Default</code>, so make the command a struct or enum.</div>
+</section>
+
+<section id="integration">
+  <div class="sec-head"><span class="sec-n">06</span><span class="sec-kicker">Guide</span></div>
+  <h2>Integration</h2>
+  <p class="lead">Where each piece of your game goes, and the four decisions that matter.</p>
+
+  <div class="term">your world                     framework
+──────────                     ─────────
+Transforms, NavMesh, HP,   →   Context (your class)        never touched by the planner
+inventory, senses, memory
+
+the few values worth        →  Fact&lt;T&gt; declarations        one slot each in the agent state
+reasoning about
+
+sensing                    →   Bind(fact, read)       or   IWorldStateProvider.GetState()
+acting                     →   GoapAction&lt;TCtx&gt;.Run   or   IActionExecutor.Translate
+writing results back       →   Bind(fact, read, write) or   your own OnCompleted
+interrupts / commitment    →   IAgentPolicy
+per-frame drive            →   GoapBrain.Tick()       or   GoapAgentHost&lt;TCommand&gt;</div>
+
+  <h3 id="int-sense">Sensing</h3>
+  <div class="two">
+    <div class="panel">
+      <h4>Flow API — bindings</h4>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">Domain</span><button class="copy">Copy</button></div><pre>d.<span class="fn">Bind</span>(Facts.HasWeapon,
+      c =&gt; c.Inventory.HasWeapon,
+      (c, v) =&gt; c.Inventory.HasWeapon = v);   <span class="cm">// two-way</span>
+
+d.<span class="fn">Bind</span>(Facts.DistanceToPlayer,
+      c =&gt; c.<span class="fn">DistanceTo</span>(c.Player));            <span class="cm">// read-only</span></pre></div>
+    </div>
+    <div class="panel">
+      <h4>Command API — state provider</h4>
+      <div class="snippet"><div class="snippet-bar"><span class="snippet-name">GuardStateProvider.cs</span><button class="copy">Copy</button></div><pre><span class="kw">public</span> <span class="ty">WorldState</span> <span class="fn">GetState</span>() =&gt; <span class="ty">WorldState</span>.<span class="fn">For</span>&lt;<span class="ty">GuardFacts</span>&gt;()
+    .<span class="fn">Set</span>(GuardFacts.AlertLevel,        _board.Alert)
+    .<span class="fn">Set</span>(GuardFacts.IntruderVisible,   _board.CanSeeIntruder)
+    .<span class="fn">Set</span>(GuardFacts.DistanceToIntruder, _board.Distance);</pre></div>
+    </div>
+  </div>
+  <p>Both run <strong>every tick</strong>, so keep them to field reads. Raycasts, <code>OverlapSphere</code> and pathfinding belong in a sensor on its own slower schedule, writing into the blackboard.</p>
+
+  <h3 id="int-move">Movement</h3>
+  <p>Implement <code>IMoveContext</code> once per project; from then on actions only say “go there”.</p>
+  <div class="snippet"><div class="snippet-bar"><span class="snippet-name">AiContext.cs</span><button class="copy">Copy</button></div><pre><span class="kw">public bool</span> <span class="fn">MoveTowards</span>(<span class="ty">Vector3</span> target)
+{
+    <span class="kw">if</span> (Nav.destination != target) Nav.<span class="fn">SetDestination</span>(target);
+    <span class="kw">return</span> !Nav.pathPending &amp;&amp; Nav.remainingDistance &lt;= Nav.stoppingDistance;
+}</pre></div>
+
+  <h3 id="int-many">Many agents</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Rule</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>One domain instance per agent</td><td>Actions hold per-run state — cancellation tokens, <code>Wait</code> timers, sequence indices</td></tr>
+      <tr><td>One planner per concurrently-ticking agent</td><td>The planner keeps a heap, a dictionary and a node pool as mutable fields</td></tr>
+      <tr><td>Stagger the ticks</td><td>There is no built-in replan interval. Give each agent a random phase and tick at 5–20 Hz</td></tr>
+      <tr><td>One <code>Facts</code> class per archetype</td><td>All agents of an archetype share the schema; mixing two schemas throws</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="int-tests">Guard it in CI</h3>
+  <div class="snippet"><div class="snippet-bar"><span class="snippet-name">DomainTests.cs</span><button class="copy">Copy</button></div><pre>[<span class="ty">Test</span>] <span class="kw">public void</span> <span class="fn">DomainIsClean</span>()
+    =&gt; <span class="ty">Assert</span>.<span class="fn">IsNull</span>(brain.<span class="fn">Describe</span>(), brain.<span class="fn">Describe</span>());
+
+[<span class="ty">Test</span>] <span class="kw">public void</span> <span class="fn">HeuristicNeverOverestimates</span>()
+{
+    <span class="kw">var</span> plan = <span class="kw">new</span> <span class="ty">GoapPlanner</span>(<span class="nu">500</span>, <span class="nu">10</span>).<span class="fn">BuildPlan</span>(actions, goal, start);
+    <span class="ty">Assert</span>.<span class="fn">LessOrEqual</span>(goal.<span class="fn">Heuristic</span>(start, <span class="kw">null</span>) ?? <span class="nu">0f</span>, plan.TotalCost);
+}
+
+[<span class="ty">Test</span>] <span class="kw">public void</span> <span class="fn">EveryStateHasARelevantGoal</span>()
+{
+    <span class="kw">for</span> (<span class="kw">int</span> energy = <span class="nu">0</span>; energy &lt;= <span class="nu">100</span>; energy++)
+        <span class="ty">Assert</span>.<span class="fn">IsTrue</span>(goals.<span class="fn">Any</span>(g =&gt; g.<span class="fn">IsRelevant</span>(<span class="fn">StateWith</span>(energy))), $<span class="st">"gap at {energy}"</span>);
+}</pre></div>
+  <div class="note ok"><b>Saving and loading:</b> the agent holds nothing worth serialising — a plan is rebuilt from the world in one tick. Save your context, restore it, let the next <code>Tick()</code> replan. Never serialise <code>WorldState</code>, <code>IPlan</code> or keys.</div>
+</section>
+
+<section id="debug">
+  <div class="sec-head"><span class="sec-n">07</span><span class="sec-kicker">Tooling</span></div>
+  <h2>Debugging</h2>
+  <p class="lead">Nothing is ever “stuck in a state”. The agent either chose something you did not expect, or chose nothing — and both have a printable answer.</p>
+
+  <h3 id="dbg-explain">Explain a decision</h3>
+  <div class="snippet"><div class="snippet-bar"><span class="snippet-name">Anywhere in your host</span><button class="copy">Copy</button></div><pre><span class="ty">Debug</span>.<span class="fn">Log</span>(brain.<span class="fn">ExplainDecision</span>());                                  <span class="cm">// flow API</span>
+<span class="ty">Debug</span>.<span class="fn">Log</span>(<span class="ty">GoapExplain</span>.<span class="fn">Decision</span>(agent.GoalEvaluations, agent.CurrentPlan)); <span class="cm">// command API</span></pre></div>
+  <div class="term">chosen: CatchIntruder  cost=2.75  plan=ChaseIntruder -&gt; GrabIntruder
+  ok   CatchIntruder      100 - 2.8 = 97.2  (len 2)
+  ..   Patrol             skipped, best case 10 could not beat the winner
+  !!   CallBackup         no plan (Unreachable)
+  --   InvestigateNoise   not relevant</div>
+  <div class="tbl"><table>
+    <thead><tr><th>Marker</th><th>Meaning</th><th>When it surprises you</th></tr></thead>
+    <tbody>
+      <tr><td class="g"><code>ok</code></td><td>Planned and scored</td><td>—</td></tr>
+      <tr><td><code>..</code></td><td>Pruned — its best case could not beat the winner</td><td>Priority too low, or the winner's plan is unrealistically cheap</td></tr>
+      <tr><td class="r"><code>!!</code></td><td>Relevant, but no plan</td><td>See the <code>PlanFailure</code> table in <a href="#c-planner">Concepts</a></td></tr>
+      <tr><td><code>--</code></td><td><code>RelevantWhen</code> returned false</td><td>The relevance window has a gap</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>Call</th><th>Answers</th></tr></thead>
+    <tbody>
+      <tr><td>GoapExplain.Decision(evals, plan)</td><td>Why this goal won, and why each other lost</td></tr>
+      <tr><td>GoapExplain.Chain(plan)</td><td><code>A -&gt; B -&gt; C</code></td></tr>
+      <tr><td>GoapExplain.Applicability(actions, state)</td><td>Which actions are blocked right now, and by which condition</td></tr>
+      <tr><td>GoapExplain.BlockedBy(action, state)</td><td>The unmet preconditions of one action</td></tr>
+      <tr><td>GoapExplain.State&lt;TFacts&gt;(state)</td><td>What the agent thinks the world is — enums by member name</td></tr>
+      <tr><td>GoapExplain.Failure(goal, failure)</td><td>The failure as a sentence, with its usual cause</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note ok"><b>Start with the state.</b> Nine times out of ten a baffling decision is a sensing bug: the snapshot the planner saw was not the world you were looking at.</div>
+
+  <h3 id="dbg-graph">The graph window</h3>
+  <p><code>Window → Analysis → GOAP Graph</code> — actions → facts → goals, with the running plan highlighted while you play.</p>
+  <div class="cards">
+    <div class="card"><div class="card-k">Discovery</div><div class="card-t">Every domain</div><div class="card-d">Implement <code>IGoapGraphSource</code> — about 15 lines — and it appears in the dropdown.</div></div>
+    <div class="card"><div class="card-k">Inspect</div><div class="card-t">Node details</div><div class="card-d">Click any node for its full preconditions, effects and traits.</div></div>
+    <div class="card"><div class="card-k">Focus</div><div class="card-t">Search &amp; hover</div><div class="card-d">Search highlights matches; hover fades everything a node is not wired to.</div></div>
+    <div class="card"><div class="card-k">Layout</div><div class="card-t">Yours to arrange</div><div class="card-d">Drag nodes; positions persist per domain. <code>Alt+S</code> saves, <code>Alt+R</code> resets.</div></div>
+  </div>
+  <div class="snippet"><div class="snippet-bar"><span class="snippet-name">GuardGraphSource.cs</span><button class="copy">Copy</button></div><pre><span class="kw">public sealed class</span> <span class="ty">GuardGraphSource</span> : <span class="ty">GoapGraphSource</span>
+{
+    <span class="kw">public override</span> <span class="ty">IReadOnlyList</span>&lt;<span class="ty">IAction</span>&gt; Actions =&gt; GuardActions.<span class="fn">All</span>();
+    <span class="kw">public override</span> <span class="ty">IReadOnlyList</span>&lt;<span class="ty">IGoal</span>&gt;   Goals   =&gt; GuardGoals.<span class="fn">All</span>();
+    <span class="kw">public override</span> <span class="ty">IGoapAgentView</span> <span class="fn">FindLiveAgent</span>() =&gt; <span class="ty">Object</span>.<span class="fn">FindObjectOfType</span>&lt;<span class="ty">GuardHost</span>&gt;()?.Agent;
+}</pre></div>
+  <div class="note"><b>What the graph cannot draw:</b> <code>PredicateCondition</code> and <code>DynamicEffect</code> have no subject fact, so they produce no edge. A node that looks disconnected but works is usually one of those.</div>
+
+  <h3 id="dbg-validate">Validate the domain</h3>
+  <div class="snippet"><div class="snippet-bar"><span class="snippet-name">Awake, and again in an EditMode test</span><button class="copy">Copy</button></div><pre><span class="kw">var</span> report = <span class="kw">new</span> <span class="ty">DomainBuilder</span>()
+    .<span class="fn">AddActions</span>(GuardActions.<span class="fn">All</span>())
+    .<span class="fn">AddGoals</span>(GuardGoals.<span class="fn">All</span>())
+    .<span class="fn">DeclaredGoalsIn</span>(<span class="kw">typeof</span>(<span class="ty">GuardGoalKeys</span>))     <span class="cm">// declared but never registered -&gt; error</span>
+    .<span class="fn">DeclaredActionsIn</span>(<span class="kw">typeof</span>(<span class="ty">GuardActionKeys</span>))
+    .<span class="fn">Describe</span>();                                <span class="cm">// null when clean</span>
+
+<span class="kw">var</span> report = domain.<span class="fn">Describe</span>();                    <span class="cm">// flow API: already wired</span></pre></div>
+  <p>Catches duplicate keys, keys declared but never registered, actions with no effects, goals with no conditions, and goals that no action can satisfy.</p>
+</section>
+
+<section id="perf">
+  <div class="sec-head"><span class="sec-n">08</span><span class="sec-kicker">Budgets</span></div>
+  <h2>Performance</h2>
+  <p class="lead">Numbers below come from the shipped core compiled as a plain .NET 8 library and run on a desktop CPU. Unity's Mono and IL2CPP are roughly 1.5–3× slower, so read these as the best case.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Domain</th><th>Situation</th><th>Time</th><th>Allocated</th><th>How often</th></tr></thead>
+    <tbody>
+      <tr><td>10 facts · 10 actions · 1 goal</td><td>One plan, 8 actions long</td><td>0.50 ms</td><td>54 KB</td><td>per plan</td></tr>
+      <tr><td rowspan="3">57 facts · 18 actions · 15 goals<br/><span class="pill">a real agent this size exists</span></td><td>Full replan — 7 of 15 goals survived pruning</td><td>0.35 ms</td><td>34 KB</td><td>when the plan becomes invalid</td></tr>
+      <tr><td>Steady tick, plan still valid</td><td class="g">6 µs</td><td class="g">752 B</td><td>every tick</td></tr>
+      <tr><td><strong>No plan exists</strong></td><td class="r">0.85 ms</td><td class="r">89 KB</td><td class="r">every single tick</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="two">
+    <div class="panel"><h4>Time is rarely the problem</h4><p>A dozen agents replanning a few times a second costs well under a millisecond per frame in total.</p></div>
+    <div class="panel"><h4>Garbage is</h4><p>Each step of the search copies the state, and each tick builds a fresh snapshot. Fifty agents at 60 fps produce about 2 MB per second from snapshots alone, before any replanning.</p></div>
+  </div>
+
+  <div class="note"><b>When no plan exists, the cost repeats every frame.</b> The agent replans whenever it has no plan. If no goal can produce one, that means a full search over every relevant goal, every tick, for as long as the situation lasts — the most expensive path in the whole system, on repeat. On screen it looks like a stuck NPC and a stuttering frame time. Keep one low-priority goal that is always relevant and always satisfiable (<code>Idle</code>, <code>Patrol</code>), and this cannot happen.</div>
+
+  <h3 id="perf-budget">Budgets</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Dial</th><th>How to pick it</th></tr></thead>
+    <tbody>
+      <tr><td><code>maxDepth</code></td><td>Count the longest chain you expect the agent to build, and add 2. Above the limit you get <em>no plan</em>, not a shorter one. Worst-case cost grows with (applicable actions)<sup>depth</sup> — this is the dangerous dial</td></tr>
+      <tr><td><code>maxIterations</code></td><td>Start at ~50 × <code>maxDepth</code>, then check <code>LastExpandedNodes</code> in your worst case and leave 2–3× headroom</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="perf-tune">How to make planning cheaper</h3>
+  <ol>
+    <li><strong>Give every goal a heuristic.</strong> Without one the search checks far more states than it needs to. This is the largest single win in any domain past a handful of actions.</li>
+    <li><strong>Declare fewer facts.</strong> The fact count is the size of the state, and the state is copied, hashed and compared at every step of the search.</li>
+    <li><strong>Use <code>RelevantWhen</code> aggressively.</strong> It is checked before any search starts, so an irrelevant goal costs nothing at all.</li>
+    <li><strong>Prefer <code>Require(fact, …)</code> over a lambda.</strong> A lambda is a delegate call at every step, and neither the validator nor the graph window can see through it.</li>
+    <li><strong>Keep <code>Cost</code> cheap.</strong> It runs at every step of the search, not once per frame — no distance loops, no <code>GetComponent</code>, no allocation.</li>
+    <li><strong>Give each NPC type its own domain.</strong> One 40-action domain shared by four types makes every agent search through actions it can never use.</li>
+    <li><strong>Spread the ticks out.</strong> Give each agent a random phase offset and tick the distant ones at 5–10 Hz; keep full rate only near the player.</li>
+  </ol>
+  <p><strong>Threads.</strong> A planner instance keeps mutable working memory, so it cannot be used from two threads at once. Give every agent that ticks concurrently its own <code>GoapPlanner</code>; agents that tick one after another on the main thread can share a single instance.</p>
+</section>
+
+<section id="reference">
+  <div class="sec-head"><span class="sec-n">09</span><span class="sec-kicker">Reference</span></div>
+  <h2>API reference</h2>
+  <p class="lead">Three assemblies: <code>Instinct.GOAP</code> is the planner and needs no Unity reference, <code>Instinct.GOAP.Unity</code> adds async actions, movement and the MonoBehaviour host, <code>Instinct.GOAP.EditorTools</code> is the graph window.</p>
+
+  <h3 id="ref-state">Facts &amp; state</h3>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>Member</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Fact&lt;T&gt;.Declare()</td><td>Declares a fact, named after the field. <code>T</code> = <code>bool</code>, <code>int</code>, <code>float</code> or a ≤32-bit enum, otherwise it throws</td></tr>
+      <tr><td>WorldState.For&lt;TFacts&gt;() · For(Type)</td><td>A state sized to that schema</td></tr>
+      <tr><td>T Get&lt;T&gt;(Fact&lt;T&gt;)</td><td>Reads a slot; throws if the fact belongs to another schema</td></tr>
+      <tr><td>WorldState Set&lt;T&gt;(Fact&lt;T&gt;, T)</td><td>Writes and returns <code>this</code>; throws if the state is frozen (Editor / dev / DEBUG)</td></tr>
+      <tr><td>bool Has&lt;T&gt;(Fact&lt;T&gt;)</td><td>Slot exists <em>and</em> was written</td></tr>
+      <tr><td>Clone() · Freeze() · IsFrozen · SlotCount</td><td>Deep copy · mark read-only · query · slot count</td></tr>
+      <tr><td>FactSchema.Of(Type) · FactSchema&lt;T&gt;.Facts</td><td>The ordered <code>IFact[]</code> behind a schema</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="ref-keys">Identity</h3>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>Member</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>ActionKey.Declare() · GoalKey.Declare()</td><td>A new unique key, named after the field</td></tr>
+      <tr><td>ActionKey.Of&lt;T&gt;() · Of(Type)</td><td>The class is the identity; cached per type</td></tr>
+      <tr><td>ActionKey.Named(string)</td><td><strong>Interned</strong> — the same string returns the same key</td></tr>
+      <tr><td>Id · DebugName · IsNone</td><td><code>Id == 0</code> means “none”</td></tr>
+      <tr><td>KeyRegistry.GoalKeysIn(Type) · ActionKeysIn(Type)</td><td>Every key declared in a keys class, cached</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="ref-builders">Builders</h3>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>ActionBuilder</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Create(ActionKey) · Create() · For&lt;T&gt;()</td><td>Start a builder; <code>Create()</code> names it after the calling member</td></tr>
+      <tr><td>Require(fact, value) · (fact, op, value) · (predicate)</td><td>Preconditions</td></tr>
+      <tr><td>Effect · Add · Copy · Computed · DynamicEffect</td><td>Effects</td></tr>
+      <tr><td>Cost(float) · Cost((state, ctx) =&gt; float)</td><td>Clamped ≥ 0.01; <code>NaN</code>/∞ makes the planner skip the action</td></tr>
+      <tr><td>Build()</td><td><code>IAction</code></td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>GoalBuilder</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Create(GoalKey) · Create()</td><td>Start a builder</td></tr>
+      <tr><td>Satisfy(fact, value) · (fact, op, value) · (predicate)</td><td>Goal conditions, ANDed</td></tr>
+      <tr><td>RelevantWhen(state =&gt; bool)</td><td>Gate; default <code>true</code></td></tr>
+      <tr><td>Priority(float) · Priority(state =&gt; float)</td><td>Default 1</td></tr>
+      <tr><td>Heuristic(state =&gt; float?) · (state, ctx) =&gt; float?</td><td>Default <code>null</code> → the planner substitutes 0.05</td></tr>
+      <tr><td>Build()</td><td><code>IGoal</code>, also <code>IInspectableGoal</code></td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>DomainBuilder</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>AddAction(s) · AddGoal(s)</td><td>Register what the domain contains</td></tr>
+      <tr><td>DeclaredGoalsIn(Type) · DeclaredActionsIn(Type)</td><td>Cross-check against a keys class</td></tr>
+      <tr><td>Validate() · Describe()</td><td><code>IReadOnlyList&lt;Issue&gt;</code> · a string, <code>null</code> when clean</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="ref-planner">Planner &amp; agent</h3>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>Member</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>new GoapPlanner(maxIterations = 200, maxDepth = 6)</td><td>Forward A*. Not thread-safe</td></tr>
+      <tr><td>BuildPlan(actions, goal, start, ctx = null)</td><td><code>null</code> on failure — read <code>LastFailure</code></td></tr>
+      <tr><td>LastFailure · LastExpandedNodes</td><td>Why it failed · how hard it worked</td></tr>
+      <tr><td>new GoapAgent&lt;TCommand&gt;(planner, goals, actions, provider, executor, ctx, planningCtx)</td><td>The command-API agent</td></tr>
+      <tr><td>TCommand Tick()</td><td>Snapshot → replan if needed → <code>OnSelected</code> → <code>Translate</code></td></tr>
+      <tr><td>NotifyActionComplete(bool) · ForceReplan()</td><td>Advance the plan · clear it</td></tr>
+      <tr><td>CurrentPlan · CurrentGoal · CurrentAction · PlanStep</td><td>Live view of the agent</td></tr>
+      <tr><td>GoalEvaluations · LastPlannedGoals</td><td>The last decision per goal · how many goals ran A*</td></tr>
+      <tr><td>Policy · Fallback</td><td><code>IAgentPolicy</code> · the command returned when there is no plan</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="ref-flow">Flow API</h3>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>Member</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>GoapDomainBuilder&lt;TCtx&gt;.For&lt;TFacts&gt;() · For(Type)</td><td>Picks the fact schema</td></tr>
+      <tr><td>Bind(fact, read) · Bind(fact, read, write)</td><td>Read-only · two-way (two-way enables effect mirroring)</td></tr>
+      <tr><td>Action(ActionKey) · Goal(GoalKey)</td><td>Fluent action and goal builders inside the domain</td></tr>
+      <tr><td>Use(params GoapAction&lt;TCtx&gt;[])</td><td>Register action classes</td></tr>
+      <tr><td>Run · Instant · RunAsync · OnDone · NoMirror</td><td>The game side of an action</td></tr>
+      <tr><td>GoapDomain&lt;TCtx&gt;: Actions · Goals · Bindings · Goal(key) · Action(key) · Describe()</td><td>Build one per agent</td></tr>
+      <tr><td>new GoapBrain&lt;TCtx&gt;(domain, ctx, planner = null, policy = null)</td><td>The whole agent under one roof</td></tr>
+      <tr><td>ActionStatus Tick() · ForceReplan() · PlanChain() · ExplainDecision()</td><td>One call per frame, plus debug strings</td></tr>
+      <tr><td>Steps.Instant · Run · Wait · Sequence</td><td>Behaviour steps that need no Unity types (<code>Wait</code> needs <code>ITickContext</code>)</td></tr>
+      <tr><td>UnitySteps.MoveTo(ctx =&gt; Vector3 · Transform)</td><td>Needs <code>IMoveContext</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="ref-enums">Enums you read and return</h3>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>Type</th><th>Values</th><th>Where it shows up</th></tr></thead>
+    <tbody>
+      <tr><td>Compare</td><td>Equal · NotEqual · Greater · GreaterOrEqual · Less · LessOrEqual</td><td><code>Require</code> and <code>Satisfy</code>. Ordered operators on a <code>bool</code> fact throw when you build the condition</td></tr>
+      <tr><td>PlanFailure</td><td>None · AlreadySatisfied · Unreachable · IterationLimit · DepthLimit</td><td><code>planner.LastFailure</code> after <code>BuildPlan</code> returned <code>null</code></td></tr>
+      <tr><td>ActionStatus</td><td>Running · Success · Failure</td><td>What a step or <code>GoapBrain.Tick()</code> returns each frame</td></tr>
+      <tr><td>Issue.Level</td><td>Warning · Error</td><td>Each entry from <code>DomainBuilder.Validate()</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="ref-interfaces">Interfaces you implement</h3>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>Interface</th><th>Members</th><th>You write one when</th></tr></thead>
+    <tbody>
+      <tr><td>IWorldStateProvider</td><td><code>WorldState GetState()</code></td><td>Using the command API — it runs every tick, so keep it to field reads</td></tr>
+      <tr><td>IActionExecutor&lt;TCommand&gt;</td><td><code>Translate(state, action, ctx)</code> · <code>OnSelected(...)</code> · <code>OnCompleted(action, ctx, success)</code></td><td>Using the command API. <code>OnSelected</code> fires every tick, not once per action</td></tr>
+      <tr><td>IAgentPolicy</td><td><code>ShouldAbandonPlan(plan, step, state)</code> · <code>UtilityBias(goal, current, state)</code> · <code>OnPlanCleared(ctx)</code></td><td>You need interrupts, or the agent keeps switching goals</td></tr>
+      <tr><td>IStep&lt;TCtx&gt;</td><td><code>OnEnter(ctx)</code> · <code>Tick(ctx)</code> · <code>OnExit(ctx, success)</code></td><td>Writing a reusable behaviour brick without UniTask</td></tr>
+      <tr><td>IMoveContext</td><td><code>Vector3 Position</code> · <code>bool MoveTowards(target)</code></td><td>Once per project, so actions can say <code>MoveTo(...)</code></td></tr>
+      <tr><td>ITickContext</td><td><code>float DeltaTime</code></td><td>You use <code>Steps.Wait</code></td></tr>
+      <tr><td>IGoapGraphSource</td><td><code>Actions</code> · <code>Goals</code> · <code>FindLiveAgent()</code> · <code>BadgesFor(goal)</code></td><td>You want your domain in the graph window (about 15 lines)</td></tr>
+      <tr><td>IAgentContext</td><td>marker, no members</td><td>You want your own context object passed through to the executor</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="ref-unity">Unity layer</h3>
+  <div class="tbl"><table class="api">
+    <thead><tr><th>Member</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>abstract GoapAction&lt;TCtx&gt;</td><td><code>Setup()</code> for the planner, <code>Run(ctx)</code> for the game. Requires UniTask</td></tr>
+      <tr><td>Fail(reason) · Ct</td><td>Report failure · the cancellation token of this run</td></tr>
+      <tr><td>Wait · NextFrame · Until · While · MoveTo · Timeout</td><td>Awaits bound to <code>Ct</code></td></tr>
+      <tr><td>AsyncStep&lt;TCtx&gt;</td><td>Runs an async body as a step; turns <code>GoapActionFailed</code> and unhandled exceptions into <code>Failure</code></td></tr>
+      <tr><td>IMoveContext</td><td><code>Position</code> · <code>MoveTowards(target)</code> — <code>true</code> on arrival</td></tr>
+      <tr><td>abstract GoapAgentHost&lt;TCommand&gt;</td><td>MonoBehaviour host for the command API; executes only when the command changes</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="trouble">
+  <div class="sec-head"><span class="sec-n">10</span><span class="sec-kicker">Support</span></div>
+  <h2>Troubleshooting</h2>
+  <p class="lead">Symptom → cause → fix, in the order these actually happen.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td>The agent stands still and the frame time spikes</td><td>No goal produces a plan, so it replans every frame</td><td>Log <a href="#dbg-explain">Explain</a>; add an always-satisfiable floor goal</td></tr>
+      <tr><td>Every goal prints <code>--</code> not relevant</td><td>The relevance windows leave a gap at this value</td><td>Make the windows tile the whole range</td></tr>
+      <tr><td>“Fact 'x' does not belong to this state's schema”</td><td>Wrong <code>Facts</code> class — or facts declared in an <strong>array</strong>, which schema discovery cannot see</td><td>Build the state from the right schema; give each fact its own static field</td></tr>
+      <tr><td>Every plan is one action long</td><td>An effect claims the whole job is done</td><td>Make the effect describe the real result: <code>Add(+1)</code> plus a <code>GreaterOrEqual</code> goal</td></tr>
+      <tr><td>The plan is not the cheapest one</td><td>The heuristic overestimates, or <code>Cost</code> is not a pure function of state</td><td>Assert admissibility in a test; remove randomness and <code>Time.time</code> from cost</td></tr>
+      <tr><td>The agent flickers between two goals</td><td>Near-equal utilities</td><td><code>UtilityBias</code> stickiness; add hysteresis in the sensor, not the planner</td></tr>
+      <tr><td>The agent ignores an emergency</td><td>No interrupt configured</td><td><code>ShouldAbandonPlan</code> in the policy</td></tr>
+      <tr><td>Effects never reach the world (flow API)</td><td>Read-only binding, <code>NoMirror()</code>, or the action failed</td><td>Give the binding a writer; mirroring happens on success only</td></tr>
+      <tr><td>An async action never finishes</td><td>The body never returns, or failure was signalled the wrong way</td><td>Return for success, <code>Fail()</code> for failure; never swallow <code>OperationCanceledException</code></td></tr>
+      <tr><td>“This WorldState is frozen”</td><td>You wrote to a state the planner holds</td><td>Write to the <code>next</code> state in <code>Apply</code>, or <code>Clone()</code> first</td></tr>
+      <tr><td>Two actions behave as one</td><td><code>ActionKey.Named</code> interns by string</td><td>Use <code>Declare()</code> or <code>Of&lt;T&gt;()</code>; run <code>Validate()</code></td></tr>
+      <tr><td>A goal never fires though it looks right</td><td>It was written but never added to the goal list</td><td><code>DeclaredGoalsIn(typeof(MyGoalKeys))</code></td></tr>
+      <tr><td>“The type or namespace 'Cysharp' could not be found”</td><td><code>Instinct.GOAP.Unity</code> requires UniTask</td><td>Install it, or <a href="#install-nouni">strip the async layer</a></td></tr>
+      <tr><td>The graph window is empty</td><td>No <code>IGoapGraphSource</code>, or one threw while constructing</td><td>Add one; check the console for the warning</td></tr>
+      <tr><td>Ten NPCs share one NPC's timers</td><td>A single static domain handed to every agent</td><td>Build one domain per agent in <code>Awake</code></td></tr>
+    </tbody>
+  </table></div>
+  <h3 id="trouble-report">Still stuck — collect this first</h3>
+  <p>Four values explain almost every misbehaviour, and all four are one line each. Log them together at the moment the agent does the wrong thing:</p>
+  <div class="snippet"><div class="snippet-bar"><span class="snippet-name">Diagnostics.cs</span><button class="copy">Copy</button></div><pre><span class="ty">Debug</span>.<span class="fn">Log</span>(brain.<span class="fn">ExplainDecision</span>());                       <span class="cm">// what every goal scored, and why it lost</span>
+<span class="ty">Debug</span>.<span class="fn">Log</span>(<span class="ty">GoapExplain</span>.<span class="fn">State</span>&lt;<span class="ty">FarmerFacts</span>&gt;(provider.<span class="fn">GetState</span>()));  <span class="cm">// the world as the planner sees it</span>
+<span class="ty">Debug</span>.<span class="fn">Log</span>(brain.Domain.<span class="fn">Describe</span>() ?? <span class="st">"domain is clean"</span>);       <span class="cm">// mistakes in the domain itself</span>
+<span class="ty">Debug</span>.<span class="fn">Log</span>($<span class="st">"planned {agent.LastPlannedGoals} goals, expanded {planner.LastExpandedNodes} nodes"</span>);</pre></div>
+  <div class="tbl"><table>
+    <thead><tr><th>What you see there</th><th>What it means</th></tr></thead>
+    <tbody>
+      <tr><td>The state does not match the game</td><td>A sensing bug. Nothing after this point is worth reading until it is fixed</td></tr>
+      <tr><td><code>Describe()</code> is not <code>null</code></td><td>The domain itself is broken — fix that before looking at behaviour</td></tr>
+      <tr><td><code>LastPlannedGoals</code> equals your goal count every tick</td><td>Nothing is being pruned, and probably nothing is planning either</td></tr>
+      <tr><td><code>LastExpandedNodes</code> near <code>maxIterations</code></td><td>The search is running out of budget — add a heuristic before raising the limit</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <strong style="color:var(--txt2)">Instinct GOAP</strong> · Unity 2022.3+ · MIT ·
+  The Markdown pages beside this file cover the same ground in more depth; <code>GUIDE-UA.md</code> is the Ukrainian version.
+</footer>
+
+</div>
+</main>
+
+<button class="top" id="top" aria-label="Back to top">↑</button>
+
+<script>
+(function () {
+  var sections = [].slice.call(document.querySelectorAll('main section'));
+  var navLinks = [].slice.call(document.querySelectorAll('.side a'));
+  var rail = document.getElementById('rail');
+  var byId = {};
+  navLinks.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+
+  /* ---- copy buttons ---- */
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = btn.closest('.snippet').querySelector('pre');
+      var done = function () {
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1400);
+      };
+      if (navigator.clipboard) navigator.clipboard.writeText(pre.innerText).then(done, done);
+      else {
+        var r = document.createRange(); r.selectNode(pre);
+        var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { document.execCommand('copy'); } catch (e) {}
+        s.removeAllRanges(); done();
+      }
+    });
+  });
+
+  /* ---- "on this page" rail, rebuilt per active section ---- */
+  function buildRail(section) {
+    var heads = [].slice.call(section.querySelectorAll('h3[id]'));
+    if (!heads.length) { rail.innerHTML = ''; return; }
+    var html = '<div class="rail-t">On this page</div>';
+    heads.forEach(function (h) {
+      html += '<a href="#' + h.id + '">' + h.textContent.replace(/&/g, '&amp;') + '</a>';
+    });
+    rail.innerHTML = html;
+  }
+
+  /* ---- scrollspy ---- */
+  var current = null;
+  function spy() {
+    var y = window.scrollY + window.innerHeight * 0.25;
+    var active = sections[0];
+    sections.forEach(function (s) { if (s.offsetTop <= y) active = s; });
+    if (active !== current) {
+      current = active;
+      navLinks.forEach(function (a) { a.classList.remove('on'); });
+      if (byId[active.id]) byId[active.id].classList.add('on');
+      buildRail(active);
+    }
+    var railLinks = [].slice.call(rail.querySelectorAll('a'));
+    var activeHead = null;
+    railLinks.forEach(function (a) {
+      var h = document.getElementById(a.getAttribute('href').slice(1));
+      if (h && h.getBoundingClientRect().top <= window.innerHeight * 0.3) activeHead = a;
+    });
+    railLinks.forEach(function (a) { a.classList.toggle('on', a === activeHead); });
+    document.getElementById('top').classList.toggle('show', window.scrollY > 900);
+  }
+  var ticking = false;
+  addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { spy(); ticking = false; });
+  }, { passive: true });
+  spy();
+
+  /* ---- search: filters the sidebar, Enter jumps to the first hit ---- */
+  var q = document.getElementById('q');
+  var nohits = document.getElementById('nohits');
+  var haystack = navLinks.map(function (a) {
+    var sec = document.getElementById(a.getAttribute('href').slice(1));
+    var extra = sec ? [].slice.call(sec.querySelectorAll('h3,h4,.card-t,.flow-t')).map(function (n) { return n.textContent; }).join(' ') : '';
+    return (a.textContent + ' ' + extra).toLowerCase();
+  });
+  q.addEventListener('input', function () {
+    var term = q.value.trim().toLowerCase();
+    var hits = 0;
+    navLinks.forEach(function (a, i) {
+      var show = !term || haystack[i].indexOf(term) > -1;
+      a.style.display = show ? '' : 'none';
+      if (show) hits++;
+    });
+    document.querySelectorAll('.navgroup').forEach(function (g) { g.style.display = term ? 'none' : ''; });
+    nohits.style.display = hits ? 'none' : 'block';
+  });
+  q.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var first = navLinks.filter(function (a) { return a.style.display !== 'none'; })[0];
+    if (first) { location.hash = first.getAttribute('href'); q.blur(); }
+  });
+  addEventListener('keydown', function (e) {
+    if (e.key === '/' && document.activeElement !== q) { e.preventDefault(); q.focus(); q.select(); }
+    if (e.key === 'Escape' && document.activeElement === q) { q.value = ''; q.dispatchEvent(new Event('input')); q.blur(); }
+  });
+
+  document.getElementById('top').addEventListener('click', function () {
+    scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>

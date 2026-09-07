@@ -1,0 +1,26 @@
+{
+  "name": "com.azen.instinct.goap",
+  "version": "1.0.0",
+  "displayName": "Instinct GOAP",
+  "description": "Goal-Oriented Action Planning for Unity. Forward A* with utility-based goal selection, typed facts and keys, an engine-free core that unit-tests outside Unity, domain validation, and a graph window that shows the running plan.",
+  "unity": "2022.3",
+  "documentationUrl": "https://andriisviatenko.github.io/Instinct-GOAP-Framework/",
+  "licensesUrl": "https://github.com/AndriiSviatenko/Instinct-GOAP-Framework/blob/main/Assets/InstinctGOAP/LICENSE",
+  "keywords": [
+    "ai",
+    "goap",
+    "planner",
+    "npc",
+    "behaviour",
+    "agent",
+    "utility-ai"
+  ],
+  "author": {
+    "name": "Azen",
+    "url": "https://github.com/AndriiSviatenko"
+  },
+  "dependencies": {
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.9",
+    "com.unity.textmeshpro": "3.0.6"
+  }
+}

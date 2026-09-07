@@ -1,0 +1,23 @@
+{
+  "name": "Instinct.GOAP.Samples.Stalker.Tests",
+  "rootNamespace": "Instinct.GOAP.Samples.Stalker.Tests",
+  "references": [
+    "Instinct.GOAP",
+    "Instinct.GOAP.Samples.Stalker"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

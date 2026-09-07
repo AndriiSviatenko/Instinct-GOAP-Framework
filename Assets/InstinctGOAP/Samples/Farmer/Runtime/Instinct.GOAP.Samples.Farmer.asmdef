@@ -1,0 +1,28 @@
+{
+  "name": "Instinct.GOAP.Samples.Farmer",
+  "rootNamespace": "Instinct.GOAP.Samples.Farmer",
+  "references": [
+    "Unity.TextMeshPro",
+    "Instinct.GOAP",
+    "Instinct.GOAP.Unity",
+    "Instinct.GOAP.Unity.Async",
+    "UniTask"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [
+    "INSTINCT_UNITASK"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.cysharp.unitask",
+      "expression": "",
+      "define": "INSTINCT_UNITASK"
+    }
+  ],
+  "noEngineReferences": false
+}

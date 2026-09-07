@@ -1,0 +1,293 @@
+/* GOAP graph window.
+
+   Everything visual lives here rather than in inline styles, so a project can restyle the
+   graph by overriding these classes instead of editing the window. Dark and light are both
+   defined: the window stamps .goap-dark / .goap-light from the editor skin. */
+
+/* ===================================================================== window */
+
+.goap-window {
+    flex-grow: 1;
+}
+
+.goap-dark.goap-window { background-color: rgb(34, 35, 40); }
+.goap-light.goap-window { background-color: rgb(200, 201, 206); }
+
+.goap-body {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.goap-graph {
+    flex-grow: 1;
+}
+
+.goap-dark .unity-graph-view { background-color: rgb(28, 29, 34); }
+.goap-light .unity-graph-view { background-color: rgb(212, 213, 218); }
+
+.goap-dark GridBackground {
+    --grid-background-color: rgb(28, 29, 34);
+    --line-color: rgba(255, 255, 255, 0.06);
+    --thick-line-color: rgba(255, 255, 255, 0.10);
+    --spacing: 18;
+}
+
+.goap-light GridBackground {
+    --grid-background-color: rgb(212, 213, 218);
+    --line-color: rgba(0, 0, 0, 0.07);
+    --thick-line-color: rgba(0, 0, 0, 0.12);
+    --spacing: 18;
+}
+
+/* ==================================================================== toolbar */
+
+.goap-toolbar {
+    height: 24px;
+    align-items: center;
+}
+
+.goap-toolbar__domain {
+    min-width: 120px;
+    -unity-font-style: bold;
+}
+
+.goap-toolbar__search {
+    width: 190px;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+.goap-toolbar__spacer {
+    flex-grow: 1;
+}
+
+.goap-toolbar__counts {
+    -unity-text-align: middle-right;
+    margin-right: 8px;
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+/* ====================================================================== nodes */
+
+.goap-node {
+    min-width: 170px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    transition-property: opacity;
+    transition-duration: 0.12s;
+}
+
+.goap-node > #node-border > #title {
+    height: 26px;
+    padding-left: 4px;
+}
+
+.goap-node > #node-border > #title > #title-label {
+    font-size: 12px;
+    -unity-font-style: bold;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+#goap-node-icon {
+    width: 15px;
+    height: 15px;
+    margin-left: 5px;
+    align-self: center;
+}
+
+#goap-node-badge {
+    min-width: 17px;
+    height: 15px;
+    margin-right: 6px;
+    align-self: center;
+    font-size: 10px;
+    -unity-text-align: middle-center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.35);
+    color: rgb(230, 230, 230);
+}
+
+#goap-node-subtitle {
+    font-size: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 3px;
+    white-space: normal;
+}
+
+.goap-dark #goap-node-subtitle { color: rgb(168, 172, 180); }
+.goap-light #goap-node-subtitle { color: rgb(78, 82, 90); }
+
+.goap-node .unity-port { font-size: 10px; }
+
+/* --- per-type colour: a coloured title strip, neutral body --- */
+
+.goap-dark .goap-node--action > #node-border > #title { background-color: rgb(38, 84, 143); }
+.goap-dark .goap-node--action { border-color: rgb(74, 140, 214); }
+.goap-light .goap-node--action > #node-border > #title { background-color: rgb(196, 219, 245); }
+.goap-light .goap-node--action { border-color: rgb(58, 118, 190); }
+
+.goap-dark .goap-node--goal > #node-border > #title { background-color: rgb(140, 105, 26); }
+.goap-dark .goap-node--goal { border-color: rgb(222, 176, 62); }
+.goap-light .goap-node--goal > #node-border > #title { background-color: rgb(247, 230, 186); }
+.goap-light .goap-node--goal { border-color: rgb(190, 145, 40); }
+
+.goap-dark .goap-node--fact > #node-border > #title { background-color: rgb(58, 60, 68); }
+.goap-dark .goap-node--fact { border-color: rgb(104, 108, 120); }
+.goap-light .goap-node--fact > #node-border > #title { background-color: rgb(219, 220, 226); }
+.goap-light .goap-node--fact { border-color: rgb(140, 143, 152); }
+
+.goap-node--fact { min-width: 130px; }
+.goap-node--fact > #node-border > #title > #title-label { font-size: 11px; }
+
+/* --- states --- */
+
+.goap-node:hover {
+    border-color: rgb(210, 214, 224);
+}
+
+/* The step the agent is executing, and the goal it is executing it for. */
+.goap-node--active {
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-color: rgb(255, 214, 66);
+}
+
+/* Search hit. */
+.goap-node--hl {
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-color: rgb(120, 230, 160);
+}
+
+/* Not related to what you are looking at right now. */
+.goap-node--dim {
+    opacity: 0.22;
+}
+
+/* ====================================================================== edges */
+
+.goap-edge {
+    --edge-width: 2;
+}
+
+.goap-edge--reads { --edge-width: 2; }
+.goap-edge--writes { --edge-width: 2; }
+.goap-edge--satisfies { --edge-width: 3; }
+
+/* ============================================== zoom LOD - readable when far out */
+
+.goap-zoom-mid #goap-node-subtitle {
+    display: none;
+}
+
+.goap-zoom-far #goap-node-subtitle,
+.goap-zoom-far #goap-node-badge,
+.goap-zoom-far .unity-port {
+    display: none;
+}
+
+.goap-zoom-far .goap-node > #node-border > #title {
+    height: 42px;
+}
+
+.goap-zoom-far .goap-node > #node-border > #title > #title-label {
+    font-size: 20px;
+}
+
+.goap-zoom-far #goap-node-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* ================================================================== mini-map */
+
+.goap-minimap {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-color: rgba(0, 0, 0, 0.4);
+}
+
+/* ================================================================= inspector */
+
+.goap-inspector {
+    width: 300px;
+    min-width: 220px;
+    border-left-width: 1px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.goap-dark .goap-inspector {
+    background-color: rgb(38, 39, 45);
+    border-left-color: rgb(24, 25, 30);
+}
+
+.goap-light .goap-inspector {
+    background-color: rgb(205, 206, 212);
+    border-left-color: rgb(160, 161, 168);
+}
+
+.goap-inspector__title {
+    -unity-font-style: bold;
+    font-size: 13px;
+    margin-bottom: 6px;
+    white-space: normal;
+}
+
+.goap-inspector__body {
+    font-size: 11px;
+    white-space: normal;
+}
+
+.goap-dark .goap-inspector__body { color: rgb(198, 202, 210); }
+.goap-light .goap-inspector__body { color: rgb(48, 52, 60); }
+
+/* ================================================================= status bar */
+
+.goap-statusbar {
+    height: 20px;
+    flex-direction: row;
+    align-items: center;
+    border-top-width: 1px;
+}
+
+.goap-dark .goap-statusbar {
+    background-color: rgb(38, 39, 45);
+    border-top-color: rgb(24, 25, 30);
+}
+
+.goap-light .goap-statusbar {
+    background-color: rgb(205, 206, 212);
+    border-top-color: rgb(160, 161, 168);
+}
+
+.goap-statusbar__text {
+    font-size: 11px;
+    margin-left: 8px;
+    opacity: 0.75;
+}
+
+.goap-statusbar__text--live {
+    color: rgb(140, 220, 120);
+    opacity: 1;
+}

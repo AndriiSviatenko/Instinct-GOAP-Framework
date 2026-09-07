@@ -1,0 +1,25 @@
+<!--
+  Compiles Instinct.GOAP (the planning core) as a plain .NET library, outside Unity.
+
+  This is the proof behind the "engine-free core" claim: if this build succeeds, the core
+  contains no UnityEngine dependency and can be unit-tested in a normal .NET test project.
+
+      dotnet build Tools/CoreCheck/core.csproj
+
+  Expected result: 0 warnings, 0 errors.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9</LangVersion>
+    <AssemblyName>Instinct.GOAP.CoreCheck</AssemblyName>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../Assets/InstinctGOAP/Runtime/Core/**/*.cs" />
+  </ItemGroup>
+
+</Project>

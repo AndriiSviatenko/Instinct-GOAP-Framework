@@ -1,0 +1,23 @@
+{
+  "name": "Instinct.GOAP.Samples.Guard.Tests",
+  "rootNamespace": "Instinct.GOAP.Samples.Guard.Tests",
+  "references": [
+    "Instinct.GOAP",
+    "Instinct.GOAP.Samples.Guard"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
